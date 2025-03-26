@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="749.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.LoginController">
+   <children>
+      <Pane layoutX="164.0" layoutY="30.0" prefHeight="494.0" prefWidth="418.0" styleClass="pane">
+         <children>
+            <Label layoutX="52.0" layoutY="188.0" prefHeight="44.0" prefWidth="49.0" text="👤">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="106.0" layoutY="40.0" lineSpacing="10.0" prefHeight="141.0" prefWidth="207.0" text="ĐĂNG NHẬP" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" wrapText="true">
+               <font>
+                  <Font name="Courier New Bold" size="37.0" />
+               </font>
+               <effect>
+                  <Blend />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="NW_RESIZE" />
+               </cursor>
+            </Label>
+         </children>
+      </Pane>
+      <TextField fx:id="email" layoutX="249.0" layoutY="216.0" prefHeight="36.0" prefWidth="251.0" promptText="Email" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="249.0" />
+      <PasswordField fx:id="password" layoutX="248.0" layoutY="278.0" prefHeight="36.0" prefWidth="251.0" promptText="Password" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="249.60000000000002" />
+      <CheckBox layoutX="226.0" layoutY="338.0" mnemonicParsing="false" text="Ghi nhớ đăng nhập" />
+      <Button alignment="CENTER" layoutX="288.0" layoutY="371.0" mnemonicParsing="false" onAction="#login" prefHeight="44.0" prefWidth="171.0" style="-fx-background-color: #00bcd4;" text="ĐĂNG NHẬP" AnchorPane.bottomAnchor="140.2" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="290.40000000000003" AnchorPane.topAnchor="371.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Button>
+      <Hyperlink layoutX="431.0" layoutY="335.0" text="Quên mật khẩu?" />
+      <Hyperlink layoutX="297.0" layoutY="436.0" text="Chưa có tài khoản?Đăng ký" />
+      <Label layoutX="217.0" layoutY="269.0" prefHeight="55.0" prefWidth="63.0" text="🔒">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
