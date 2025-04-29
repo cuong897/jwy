@@ -13,6 +13,7 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+<<<<<<< HEAD
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -29,3 +30,7 @@
 
 </project>
 
+=======
+
+</project>
+>>>>>>> 4dfe4beec7ecdba9f655517bed17d8eff7b08fa1

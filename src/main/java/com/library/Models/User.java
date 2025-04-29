@@ -16,7 +16,11 @@ public class User {
         this.password = other.password;
         this.phoneNumber = other.phoneNumber;
         this.email = other.email;
+<<<<<<< HEAD
         this.role = other.role;
+=======
+        this.role = role;
+>>>>>>> 4dfe4beec7ecdba9f655517bed17d8eff7b08fa1
     }
     public User (String userID, String name, String userName, String password) {
         this.userID = userID;
