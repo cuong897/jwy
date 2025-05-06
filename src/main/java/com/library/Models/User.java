@@ -1,6 +1,7 @@
 package com.library.Models;
 
 public class User {
+    private String avatarUrl;
     private String userID;
     private String name;
     private String userName;
@@ -31,6 +32,14 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getUserID() {

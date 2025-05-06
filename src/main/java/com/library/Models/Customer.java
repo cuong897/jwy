@@ -1,7 +1,7 @@
 package com.library.Models;
 import java.util.List;
 public class Customer extends User{
-    private String avatarURL;
+
     private List<Book> favoriteBookList;
     private List<Book> currentlyBorrowedBookList;
     public Customer(){}
