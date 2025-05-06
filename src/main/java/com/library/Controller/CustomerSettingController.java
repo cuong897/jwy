@@ -88,6 +88,7 @@ public class CustomerSettingController implements Initializable {
         });
 
     }
+
     public void handleChangeAvatar() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh đại diện");
@@ -122,4 +123,116 @@ public class CustomerSettingController implements Initializable {
             }
         }
     }
+
+    public void handleChangePassword() {
+        String oldPassword = oldPasswordField.getText();
+        String newPassword = newPasswordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+
+
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
+            return;
+        }
+        if (!oldPassword.equals(currentCustomer.getPassword())) {
+            JOptionPane.showMessageDialog(null, "Mật khẩu cũ không đúng");
+            return;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(null, "Mật khẩu mới không khớp");
+            return;
+        }
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE customer SET password = ? WHERE userID = ? AND password = ?";
+            var preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, userIDLabel.getText());
+            preparedStatement.setString(3, oldPassword);
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+            } else {
+                JOptionPane.showMessageDialog(null, "Đổi mật khẩu không thành công");
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi đổi mật khẩu: " + e.getMessage());
+        }
+
+    }
+
+    public handleChangePhoneNumber() {
+        String newPhoneNumber = changePhoneNumberField.getText();
+        if (newPhoneNumber.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền số điện thoại mới");
+            return;
+        }
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE customer SET phoneNumber = ? WHERE userID = ?";
+            var preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newPhoneNumber);
+            preparedStatement.setString(2, userIDLabel.getText());
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Cập nhật số điện thoại thành công");
+                phoneNumberLabel.setText("Số điện thoại: " + newPhoneNumber);
+            } else {
+                JOptionPane.showMessageDialog(null, "Cập nhật số điện thoại không thành công");
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi cập nhật số điện thoại: " + e.getMessage());
+        }
+    }
+
+    public handleChangeGmail() {
+        String newGmail = changeGmailField.getText();
+        if (newGmail.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền email mới");
+            return;
+        }
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE customer SET email = ? WHERE userID = ?";
+            var preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newGmail);
+            preparedStatement.setString(2, userIDLabel.getText());
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Cập nhật email thành công");
+                gmailLabel.setText("Email: " + newGmail);
+            } else {
+                JOptionPane.showMessageDialog(null, "Cập nhật email không thành công");
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi cập nhật email: " + e.getMessage());
+        }
+    }
+
+    public void handleChangeUserName() {
+        String newUserName = changeUserNameField.getText();
+        if (newUserName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền tên người dùng mới");
+            return;
+        }
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "UPDATE customer SET userName = ? WHERE userID = ?";
+            var preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, newUserName);
+            preparedStatement.setString(2, userIDLabel.getText());
+            int rowsUpdated = preparedStatement.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Cập nhật tên người dùng thành công");
+                userNameLabel.setText(newUserName);
+            } else {
+                JOptionPane.showMessageDialog(null, "Cập nhật tên người dùng không thành công");
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi cập nhật tên người dùng: " + e.getMessage());
+        }
+    }
+
 }
