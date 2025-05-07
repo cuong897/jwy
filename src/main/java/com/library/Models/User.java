@@ -2,7 +2,7 @@ package com.library.Models;
 
 public class User {
     private String avatarUrl;
-    private String userID;
+    private int userID;
     private String name;
     private String userName;
     private String password;
@@ -19,13 +19,13 @@ public class User {
         this.email = other.email;
         this.role = role;
     }
-    public User (String userID, String name, String userName, String password) {
+    public User (int userID, String name, String userName, String password) {
         this.userID = userID;
         this.name = name;
         this.userName = userName;
         this.password = password;
     }
-    public User (String userID, String name, String userName, String password, String phoneNumber, String email) {
+    public User (int userID, String name, String userName, String password, String phoneNumber, String email) {
         this.userID = userID;
         this.name = name;
         this.userName = userName;
@@ -42,11 +42,11 @@ public class User {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
