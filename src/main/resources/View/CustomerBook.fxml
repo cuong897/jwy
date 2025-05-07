@@ -13,12 +13,12 @@
 
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F5ECD5; -fx-background-radius: 0px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-         <ScrollPane layoutX="67.0" layoutY="88.0" prefHeight="298.0" prefWidth="211.0">
+         <ScrollPane layoutX="15.0" layoutY="53.0" prefHeight="334.0" prefWidth="245.0">
             <content>
-               <ListView prefHeight="296.0" prefWidth="210.0" />
+               <ListView prefHeight="332.0" prefWidth="244.0" />
             </content>
          </ScrollPane>
-         <Pane layoutX="293.0" layoutY="88.0" prefHeight="298.0" prefWidth="292.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+         <Pane layoutX="279.0" layoutY="52.0" prefHeight="334.0" prefWidth="306.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
             <children>
                <Pane layoutX="11.0" layoutY="10.0" prefHeight="125.0" prefWidth="82.0" style="-fx-background-color: red;">
                   <children>
@@ -30,26 +30,26 @@
                      <Font name="System Bold Italic" size="13.0" />
                   </font>
                </Label>
-               <Label alignment="TOP_LEFT" layoutX="106.0" layoutY="47.0" prefHeight="199.0" prefWidth="179.0" style="-fx-background-color: gray;" text="Label">
+               <Label alignment="TOP_LEFT" layoutX="106.0" layoutY="47.0" prefHeight="230.0" prefWidth="179.0" style="-fx-background-color: gray;" text="Label">
                   <font>
                      <Font size="10.0" />
                   </font>
                </Label>
-               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="240.0" prefHeight="23.0" prefWidth="50.0" text="Status">
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="257.0" prefHeight="23.0" prefWidth="50.0" text="Status">
                   <font>
                      <Font name="System Bold" size="13.0" />
                   </font>
                </Label>
-               <Pane layoutX="11.0" layoutY="258.0" prefHeight="33.0" prefWidth="82.0" style="-fx-background-color: gray; -fx-background-radius: 20px;" />
-               <Button layoutX="210.0" layoutY="263.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: F0BB78;" text="Borrow" />
+               <Pane layoutX="10.0" layoutY="287.0" prefHeight="33.0" prefWidth="82.0" style="-fx-background-color: gray; -fx-background-radius: 20px;" />
+               <Button layoutX="218.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: F0BB78;" text="Borrow" />
             </children>
          </Pane>
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="147.0" layoutY="58.0" prefHeight="23.0" prefWidth="50.0" text="Results">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="21.0" prefHeight="23.0" prefWidth="50.0" text="Results">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>
          </Label>
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="415.0" layoutY="58.0" prefHeight="23.0" prefWidth="50.0" text="Details">
+         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="407.0" layoutY="21.0" prefHeight="23.0" prefWidth="50.0" text="Details">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>
