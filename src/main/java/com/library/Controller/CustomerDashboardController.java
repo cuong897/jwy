@@ -8,12 +8,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -24,6 +27,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CustomerDashboardController implements Initializable {
+    @FXML
+    private Button logOutButton;
+    @FXML
+    private AnchorPane dashboardRoot;
     @FXML
     private AnchorPane mainContainer;
     @FXML
@@ -57,27 +64,29 @@ public class CustomerDashboardController implements Initializable {
     private Label dateLabel;
     @FXML
     private Pane navigationBorderPane;
-    private Customer customer;
+
+    @FXML
     private Node currentNode;
-    public CustomerDashboardController() {
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
+    @FXML
     private TextField searchToolBar;
+    @FXML
     private Button searchButton;
+    private Customer currentCustomer;
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
+    }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+        this.currentCustomer = customer;
+        welcomeLabel.setText("Welcome," + currentCustomer.getName() + " !");
+        preLoad();
+        gotoHome();
     }
 
     private Map<String, FXMLLoader> cache = new HashMap<>();
 
     private ActiveButton activeButton;
-
-
 
 
     public enum ActiveButton {
@@ -89,13 +98,14 @@ public class CustomerDashboardController implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         settingButton.setOnAction(e -> {
-            gotoSetting();
+            try {
+                gotoSetting();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         HomeButton.setOnAction(e -> {
             gotoHome();
-        });
-        settingButton.setOnAction(e -> {
-            gotoSetting();
         });
         borrowBookButton.setOnAction(e -> {
             gotoBorrowBook();
@@ -111,7 +121,13 @@ public class CustomerDashboardController implements Initializable {
             String query = searchToolBar.getText();
             searchBooks(query);
         });
-        welcomeLabel.setText("Welcome," + customer.getName() + " !");
+        logOutButton.setOnAction(e -> {
+            try {
+                logOut();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         dateLabel.setText("Date: " + java.time.LocalDate.now());
 
     }
@@ -135,16 +151,20 @@ public class CustomerDashboardController implements Initializable {
         if (activeButton != ActiveButton.HOME) {
             activeButton = ActiveButton.HOME;
             currentLocationLabel.setText("Dashboard");
+            navigationBorderAnimation(HomeButton);
             loadPane("src/main/resources/View/customerDasboard.fxml");
         }
     }
-    public void gotoSetting() {
+
+    public void gotoSetting() throws IOException {
         if (activeButton != ActiveButton.SETTING) {
             activeButton = ActiveButton.SETTING;
             currentLocationLabel.setText("Setting");
+            navigationBorderAnimation(settingButton);
             loadPane("src/main/resources/View/customerSetting.fxml");
         }
     }
+
     public void gotoBorrowBook() {
         if (activeButton != ActiveButton.BORROW_BOOK) {
             activeButton = ActiveButton.BORROW_BOOK;
@@ -153,13 +173,17 @@ public class CustomerDashboardController implements Initializable {
             loadPane("src/main/resources/View/customerBorrowBook.fxml");
         }
     }
+
     public void gotoMyLibrary() {
         if (activeButton != ActiveButton.MY_LIBRARY) {
             activeButton = ActiveButton.MY_LIBRARY;
             currentLocationLabel.setText("My Library");
+            navigationBorderAnimation(myLibraryButton);
             loadPane("src/main/resources/View/customerMyLibrary.fxml");
+
         }
     }
+
     private void preLoad() {
         String[] fxmlPaths = {
                 "/com/lightlibrary/Views/CustomerDashboard.fxml",
@@ -193,12 +217,17 @@ public class CustomerDashboardController implements Initializable {
             loadPaneThread.start();
         }
     }
+
     public void loadPane(String fxmlPath) {
-        if(cache.containsKey(fxmlPath)) {
+        if (cache.containsKey(fxmlPath)) {
             FXMLLoader loader = cache.get(fxmlPath);
+            if (fxmlPath.equals("/com/lightlibrary/Views/CustomerSetting.fxml")) {
+                CustomerSettingController settingController = loader.getController();
+                settingController.setCurrentCustomer(currentCustomer);
+            }
             switchPaneAnimation(loader.getRoot());
         } else {
-            Task<FXMLLoader> loadTask = new Task <>() {
+            Task<FXMLLoader> loadTask = new Task<>() {
                 @Override
                 protected FXMLLoader call() throws IOException {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -208,7 +237,8 @@ public class CustomerDashboardController implements Initializable {
             };
             loadTask.setOnSucceeded(event -> {
                 FXMLLoader loader = loadTask.getValue();
-                loader.load();
+                cache.put(fxmlPath, loader);
+                switchPaneAnimation(loader.getRoot());
             });
             loadTask.setOnFailed(event -> {
                 Throwable exception = loadTask.getException();
@@ -219,8 +249,9 @@ public class CustomerDashboardController implements Initializable {
             loadPaneThread.start();
         }
     }
+
     public void switchPaneAnimation(Node node) {
-        if(currentNode != null) {
+        if (currentNode != null) {
             FadeTransition fadeout = new FadeTransition(Duration.seconds(0.4), currentNode);
             fadeout.setFromValue(1.0);
             fadeout.setToValue(0.0);
@@ -244,4 +275,31 @@ public class CustomerDashboardController implements Initializable {
 
     }
 
+    public void searchBooks(String query) {
+        if (cache.containsKey("src/main/resources/View/customerBorrowBook.fxml")) {
+            FXMLLoader loader = cache.get("src/main/resources/View/customerBorrowBook.fxml");
+            CustomerBorrowBookController customerBorrowBookController = loader.getController();
+            customerBorrowBookController.updateSearchBooksResult(query);
+            navigationBorderAnimation(borrowBookButton);
+        } else {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("src/main/resources/View/customerBorrowBook.fxml")));
+            try {
+                Parent searchPane = loader.load();
+                CustomerBorrowBookController customerBorrowBookController = loader.getController();
+                customerBorrowBookController.updateSearchBooksResult(query);
+                navigationBorderAnimation(borrowBookButton);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        gotoBorrowBook();
+    }
+
+    public void logOut() throws IOException {
+        Parent login = FXMLLoader.load(Objects.requireNonNull(getClass()
+                .getResource("src/main/resources/View/LoginAndRegister.fxml")));
+        Stage stage = (Stage) dashboardRoot.getScene().getWindow();
+        stage.setScene(new Scene(login, 960, 640));
+        stage.show();
+    }
 }

@@ -61,16 +61,27 @@ public class CustomerSettingController implements Initializable {
         return currentCustomer;
     }
 
-    public static void setCurrentCustomer(Customer currentCustomer) {
+    public void setCurrentCustomer(Customer currentCustomer) {
         this.currentCustomer = currentCustomer;
+        userIDLabel.setText(String.valueOf(currentCustomer.getUserID()));
+        userNameLabel.setText(currentCustomer.getUserName());
+        gmailLabel.setText("Email: " + currentCustomer.getEmail());
+        phoneNumberLabel.setText("Phone number: " + currentCustomer.getPhoneNumber());
+        if (currentCustomer.getAvatarUrl() != null && !currentCustomer.getAvatarUrl().isEmpty()) {
+            try {
+                Image image = new Image(currentCustomer.getAvatarUrl());
+                avatarImage.setImage(image);
+            } catch (Exception e) {
+                System.err.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
+                avatarImage.setImage(new Image(getClass().getResource("src/main/resources/Image/ApplicationLogo.jpg").toExternalForm()));
+            }
+        } else {
+            avatarImage.setImage(new Image(getClass().getResource("src/main/resources/Image/ApplicationLogo.jpg").toExternalForm()));
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userIDLabel.setText(currentCustomer.getUserID());
-        userNameLabel.setText(currentCustomer.getUserName());
-        gmailLabel.setText("Email: " + currentCustomer.getEmail());
-        phoneNumberLabel.setText("Phone number: " + currentCustomer.getPhoneNumber());
         changeAvatarButton.setOnAction(event -> {
             handleChangeAvatar();
         });
@@ -101,10 +112,10 @@ public class CustomerSettingController implements Initializable {
         File selectedImageFile = fileChooser.showOpenDialog(stage);
 
         if (selectedImageFile != null) {
+            currentCustomer.setAvatarUrl(selectedImageFile.getAbsolutePath());
             try {
                 Image image = new Image(selectedImageFile.toURI().toString());
                 avatarImage.setImage(image);
-
             } catch (Exception e) {
                 System.err.println("Lỗi khi tải ảnh: " + e.getMessage());
 
@@ -163,7 +174,7 @@ public class CustomerSettingController implements Initializable {
 
     }
 
-    public handleChangePhoneNumber() {
+    public void handleChangePhoneNumber() {
         String newPhoneNumber = changePhoneNumberField.getText();
         if (newPhoneNumber.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền số điện thoại mới");
@@ -187,7 +198,7 @@ public class CustomerSettingController implements Initializable {
         }
     }
 
-    public handleChangeGmail() {
+    public void handleChangeGmail() {
         String newGmail = changeGmailField.getText();
         if (newGmail.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền email mới");
