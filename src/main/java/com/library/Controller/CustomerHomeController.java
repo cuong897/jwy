@@ -206,7 +206,33 @@ public class CustomerHomeController implements Initializable {
 
 
     private void handleViewBookAction(Book book) {
-sa
+        if (book == null || parentController == null) {
+            System.err.println("handleViewBookAction: Sách hoặc parentController là null.");
+            return;
+        }
+
+        String searchQuery = book.getIsbn();
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            searchQuery = book.getTitle();
+            System.out.println("Không có ISBN, tìm kiếm bằng tiêu đề: " + searchQuery); // Debug
+        } else {
+            System.out.println("Tìm kiếm bằng ISBN: " + searchQuery); // Debug
+        }
+
+
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            System.err.println("handleViewBookAction: Không có thông tin (ISBN/Tiêu đề) để tìm kiếm sách.");
+            return;
+        }
+
+        parentController.gotoBorrowBook();
+
+        String finalSearchQuery = searchQuery;
+        Platform.runLater(() -> {
+            System.out.println("Yêu cầu tìm kiếm cho: " + finalSearchQuery); // Debug
+            parentController.searchBooks(finalSearchQuery);
+
+        });
     }
 
     private Book convertVolumeToBook(Volume volume) {
