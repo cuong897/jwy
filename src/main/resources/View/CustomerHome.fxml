@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Home">
+
+
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="606.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <children>
+         <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="220.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../Image/tai-anh-meo-ngau-thumbnail.jpg" />
+            </image>
+         </ImageView>
+         <Label layoutX="254.0" layoutY="182.0" prefHeight="17.0" prefWidth="143.0" text="Welcome to your library!">
+            <font>
+               <Font name="System Bold Italic" size="12.0" />
+            </font>
+         </Label>
+         <Label layoutX="256.0" layoutY="198.0" prefHeight="17.0" prefWidth="143.0" text="Enjoy your reading time!">
+            <font>
+               <Font name="System Bold Italic" size="12.0" />
+            </font>
+         </Label>
+         <Label layoutX="84.0" layoutY="226.0" text="FOR YOU ">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+         </Label>
+         <Pane layoutX="73.0" layoutY="251.0" prefHeight="129.0" prefWidth="131.0" style="-fx-background-color: yellow;">
+            <children>
+               <Pane layoutX="7.0" layoutY="7.0" prefHeight="84.0" prefWidth="50.0" style="-fx-background-color: green;">
+                  <children>
+                     <ImageView fitHeight="84.0" fitWidth="50.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+                  </children>
+               </Pane>
+               <Button layoutX="81.0" layoutY="96.0" mnemonicParsing="false" text="View" />
+               <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="7.0" prefHeight="64.0" prefWidth="62.0" style="-fx-background-color: white;" text="Label">
+                  <font>
+                     <Font name="System Bold Italic" size="12.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+         <Pane layoutX="250.0" layoutY="251.0" prefHeight="129.0" prefWidth="134.0" style="-fx-background-color: yellow;">
+            <children>
+               <Pane layoutX="6.0" layoutY="7.0" prefHeight="84.0" prefWidth="50.0" style="-fx-background-color: green;">
+                  <children>
+                     <ImageView fitHeight="84.0" fitWidth="50.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+                  </children>
+               </Pane>
+               <Button layoutX="87.0" layoutY="97.0" mnemonicParsing="false" text="View" />
+               <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="67.0" layoutY="7.0" prefHeight="64.0" prefWidth="65.0" style="-fx-background-color: white;" text="Label">
+                  <font>
+                     <Font name="System Bold Italic" size="12.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+         <Pane layoutX="433.0" layoutY="252.0" prefHeight="128.0" prefWidth="134.0" style="-fx-background-color: yellow;">
+            <children>
+               <Pane layoutX="6.0" layoutY="5.0" prefHeight="84.0" prefWidth="50.0" style="-fx-background-color: green;">
+                  <children>
+                     <ImageView fitHeight="84.0" fitWidth="50.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+                  </children>
+               </Pane>
+               <Button layoutX="89.0" layoutY="95.0" mnemonicParsing="false" text="View" />
+               <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="66.0" layoutY="7.0" prefHeight="64.0" prefWidth="65.0" style="-fx-background-color: white;" text="Label">
+                  <font>
+                     <Font name="System Bold Italic" size="12.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+        </children>
+    </AnchorPane>
+
+</AnchorPane>
