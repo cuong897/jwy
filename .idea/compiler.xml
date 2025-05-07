@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jwy" />
+        <module name="LightLibrary" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jwy" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>
