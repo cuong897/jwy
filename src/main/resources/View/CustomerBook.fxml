@@ -3,57 +3,63 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Book">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.UserBookController">
 
     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F5ECD5; -fx-background-radius: 0px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
         <children>
-         <ScrollPane layoutX="15.0" layoutY="53.0" prefHeight="334.0" prefWidth="245.0">
-            <content>
-               <ListView prefHeight="332.0" prefWidth="244.0" />
-            </content>
-         </ScrollPane>
-         <Pane layoutX="279.0" layoutY="52.0" prefHeight="334.0" prefWidth="306.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
-            <children>
-               <Pane layoutX="11.0" layoutY="10.0" prefHeight="125.0" prefWidth="82.0" style="-fx-background-color: red;">
-                  <children>
-                     <ImageView fitHeight="126.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
-                  </children>
-               </Pane>
-               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="10.0" prefHeight="33.0" prefWidth="178.0" text="Label">
-                  <font>
-                     <Font name="System Bold Italic" size="13.0" />
-                  </font>
-               </Label>
-               <Label alignment="TOP_LEFT" layoutX="106.0" layoutY="47.0" prefHeight="230.0" prefWidth="179.0" style="-fx-background-color: gray;" text="Label">
-                  <font>
-                     <Font size="10.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="257.0" prefHeight="23.0" prefWidth="50.0" text="Status">
-                  <font>
-                     <Font name="System Bold" size="13.0" />
-                  </font>
-               </Label>
-               <Pane layoutX="10.0" layoutY="287.0" prefHeight="33.0" prefWidth="82.0" style="-fx-background-color: gray; -fx-background-radius: 20px;" />
-               <Button layoutX="218.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: F0BB78;" text="Borrow" />
-            </children>
-         </Pane>
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="21.0" prefHeight="23.0" prefWidth="50.0" text="Results">
-            <font>
-               <Font name="System Bold" size="15.0" />
-            </font>
-         </Label>
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="407.0" layoutY="21.0" prefHeight="23.0" prefWidth="50.0" text="Details">
-            <font>
-               <Font name="System Bold" size="15.0" />
-            </font>
-         </Label>
+            <Pane layoutX="279.0" layoutY="52.0" prefHeight="334.0" prefWidth="306.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
+                <children>
+                    <Pane layoutX="11.0" layoutY="10.0" prefHeight="125.0" prefWidth="82.0" style="-fx-background-color: red;">
+                        <children>
+                            <ImageView fx:id="coverImageView" fitHeight="126.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" />
+                        </children>
+                    </Pane>
+                    <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="10.0" prefHeight="33.0" prefWidth="178.0" text="Label">
+                        <font>
+                            <Font name="System Bold Italic" size="13.0" />
+                        </font>
+                    </Label>
+                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="257.0" prefHeight="23.0" prefWidth="50.0" text="Status">
+                        <font>
+                            <Font name="System Bold" size="13.0" />
+                        </font>
+                    </Label>
+                    <Pane layoutX="10.0" layoutY="287.0" prefHeight="33.0" prefWidth="82.0" style="-fx-background-color: gray; -fx-background-radius: 20px;">
+                        <children>
+                            <Label fx:id="availabilityLabel" layoutX="27.0" layoutY="6.0" text="Label" />
+                        </children></Pane>
+                    <Button fx:id="borrowButton" layoutX="218.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" style="-fx-background-color: F0BB78;" text="Borrow" />
+                    <VBox layoutX="123.0" layoutY="51.0" prefHeight="216.0" prefWidth="160.0">
+                        <children>
+                            <Label fx:id="authorLabel" prefHeight="18.0" prefWidth="62.0" text="label" />
+                            <Label fx:id="publisherLabel" prefHeight="18.0" prefWidth="97.0" text="label" />
+                            <Label fx:id="isbnLabel" text="Label" />
+                            <Label fx:id="categoryLabel" text="Label" />
+                            <Label fx:id="publishDateLabel" text="Label" />
+                            <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" />
+                            <Label fx:id="priceLabel" text="Label" />
+                        </children>
+                    </VBox>
+                </children>
+            </Pane>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="21.0" prefHeight="23.0" prefWidth="50.0" text="Results">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="407.0" layoutY="21.0" prefHeight="23.0" prefWidth="50.0" text="Details">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+            </Label>
+            <ListView fx:id="booksListView" layoutX="15.0" layoutY="53.0" prefHeight="332.0" prefWidth="244.0" />
         </children>
     </AnchorPane>
 
