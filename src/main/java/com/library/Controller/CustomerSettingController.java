@@ -54,6 +54,7 @@ public class CustomerSettingController implements Initializable {
     private Button changeAvatarButton;
     @FXML
     private ImageView avatarImage;
+    private CustomerDashboardController parentController;
 
     private Customer currentCustomer;
 
@@ -61,22 +62,37 @@ public class CustomerSettingController implements Initializable {
         return currentCustomer;
     }
 
-    public void setCurrentCustomer(Customer currentCustomer) {
-        this.currentCustomer = currentCustomer;
-        userIDLabel.setText(String.valueOf(currentCustomer.getUserID()));
-        userNameLabel.setText(currentCustomer.getUserName());
-        gmailLabel.setText("Email: " + currentCustomer.getEmail());
-        phoneNumberLabel.setText("Phone number: " + currentCustomer.getPhoneNumber());
-        if (currentCustomer.getAvatarUrl() != null && !currentCustomer.getAvatarUrl().isEmpty()) {
-            try {
-                Image image = new Image(currentCustomer.getAvatarUrl());
-                avatarImage.setImage(image);
-            } catch (Exception e) {
-                System.err.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
-                avatarImage.setImage(new Image(getClass().getResource("src/main/resources/Image/ApplicationLogo.jpg").toExternalForm()));
+    public void setCustomerDashboardController(CustomerDashboardController parentController) {
+        this.parentController = parentController;
+        if (this.parentController != null) {
+            this.currentCustomer = this.parentController.getCurrentCustomer();
+            if (this.currentCustomer != null) {
+                userIDLabel.setText(String.valueOf(currentCustomer.getUserID()));
+                userNameLabel.setText(currentCustomer.getUserName());
+                gmailLabel.setText("Email: " + currentCustomer.getEmail());
+                phoneNumberLabel.setText("Phone number: " + currentCustomer.getPhoneNumber());
+
+                if (currentCustomer.getAvatarUrl() != null && !currentCustomer.getAvatarUrl().isEmpty()) {
+                    try {
+                        Image image = new Image(currentCustomer.getAvatarUrl()); // Cần xử lý nếu getAvatarUrl() không phải URL hợp lệ
+                        avatarImage.setImage(image);
+                    } catch (Exception e) {
+                        System.err.println("Lỗi khi tải ảnh : " + e.getMessage());
+                        Image defaultImage = new Image("/ApplicationLogo.jpg");
+                        avatarImage.setImage(defaultImage);
+                    }
+                } else {
+                    Image defaultImage = new Image("/ApplicationLogo.jpg");
+                    avatarImage.setImage(defaultImage);
+                }
+            } else {
+                userIDLabel.setText("");
+                userNameLabel.setText("");
+                gmailLabel.setText("");
+                phoneNumberLabel.setText("");
+                Image defaultImage = new Image("/Image/ApplicationLogo.jpg");
+                avatarImage.setImage(defaultImage);
             }
-        } else {
-            avatarImage.setImage(new Image(getClass().getResource("src/main/resources/Image/ApplicationLogo.jpg").toExternalForm()));
         }
     }
 

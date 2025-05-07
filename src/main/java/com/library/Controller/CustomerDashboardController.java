@@ -61,8 +61,6 @@ public class CustomerDashboardController implements Initializable {
     @FXML
     private Label userNameLabel;
     @FXML
-    private Label dateLabel;
-    @FXML
     private Pane navigationBorderPane;
 
     @FXML
@@ -128,12 +126,10 @@ public class CustomerDashboardController implements Initializable {
                 throw new RuntimeException(ex);
             }
         });
-        dateLabel.setText("Date: " + java.time.LocalDate.now());
-
     }
 
     private void playClickSound() {
-        String soundPath = Objects.requireNonNull(getClass().getResource("src/main/resources/Sounds/clickSound.wav")).toString();
+        String soundPath = Objects.requireNonNull(getClass().getResource("/Sounds/clickSound.wav")).toString();
         javafx.scene.media.AudioClip clickSound = new javafx.scene.media.AudioClip(soundPath);
         clickSound.play();
     }
@@ -148,20 +144,24 @@ public class CustomerDashboardController implements Initializable {
     }
 
     public void gotoHome() {
+        System.out.println("Đang gọi gotoHome()");
         if (activeButton != ActiveButton.HOME) {
             activeButton = ActiveButton.HOME;
             currentLocationLabel.setText("Dashboard");
             navigationBorderAnimation(HomeButton);
-            loadPane("src/main/resources/View/customerDasboard.fxml");
+            loadPane("/View/CustomerHome.fxml");
         }
     }
 
     public void gotoSetting() throws IOException {
         if (activeButton != ActiveButton.SETTING) {
+            FXMLLoader loader = cache.get("/View/CustomerSetting.fxml");
+            CustomerSettingController controller = loader.getController();
+            controller.setCustomerDashboardController(CustomerDashboardController.this);
             activeButton = ActiveButton.SETTING;
             currentLocationLabel.setText("Setting");
             navigationBorderAnimation(settingButton);
-            loadPane("src/main/resources/View/customerSetting.fxml");
+            loadPane("/View/CustomerSetting.fxml");
         }
     }
 
@@ -170,7 +170,7 @@ public class CustomerDashboardController implements Initializable {
             activeButton = ActiveButton.BORROW_BOOK;
             currentLocationLabel.setText("Borrow Book");
             navigationBorderAnimation(borrowBookButton);
-            loadPane("src/main/resources/View/customerBorrowBook.fxml");
+            loadPane("/View/CustomerBorrowBook.fxml");
         }
     }
 
@@ -179,17 +179,17 @@ public class CustomerDashboardController implements Initializable {
             activeButton = ActiveButton.MY_LIBRARY;
             currentLocationLabel.setText("My Library");
             navigationBorderAnimation(myLibraryButton);
-            loadPane("src/main/resources/View/customerMyLibrary.fxml");
+            loadPane("/View/CustomerMyLibrary.fxml");
 
         }
     }
 
     private void preLoad() {
         String[] fxmlPaths = {
-                "/com/lightlibrary/Views/CustomerDashboard.fxml",
-                "/com/lightlibrary/Views/CustomerBorrowBook.fxml",
-                "/com/lightlibrary/Views/CustomerSetting.fxml",
-                "/com/lightlibrary/Views/CustomerMyLibrary.fxml",
+                "/Views/CustomerHome.fxml",
+                "/Views/CustomerBorrowBook.fxml",
+                "/Views/CustomerSetting.fxml",
+                "/Views/CustomerMyLibrary.fxml",
         };
 
         for (String fxmlPath : fxmlPaths) {
@@ -206,7 +206,7 @@ public class CustomerDashboardController implements Initializable {
                     loader.load();
                     cache.put(fxmlPath, loader);
                 } catch (IOException e) {
-                    e.printStackTrace(); // Consider logging the exception more robustly
+                    e.printStackTrace();
                 }
             });
 
@@ -221,10 +221,6 @@ public class CustomerDashboardController implements Initializable {
     public void loadPane(String fxmlPath) {
         if (cache.containsKey(fxmlPath)) {
             FXMLLoader loader = cache.get(fxmlPath);
-            if (fxmlPath.equals("/com/lightlibrary/Views/CustomerSetting.fxml")) {
-                CustomerSettingController settingController = loader.getController();
-                settingController.setCurrentCustomer(currentCustomer);
-            }
             switchPaneAnimation(loader.getRoot());
         } else {
             Task<FXMLLoader> loadTask = new Task<>() {
@@ -276,13 +272,13 @@ public class CustomerDashboardController implements Initializable {
     }
 
     public void searchBooks(String query) {
-        if (cache.containsKey("src/main/resources/View/customerBorrowBook.fxml")) {
-            FXMLLoader loader = cache.get("src/main/resources/View/customerBorrowBook.fxml");
+        if (cache.containsKey("/View/customerBorrowBook.fxml")) {
+            FXMLLoader loader = cache.get("/View/customerBorrowBook.fxml");
             CustomerBorrowBookController customerBorrowBookController = loader.getController();
             customerBorrowBookController.updateSearchBooksResult(query);
             navigationBorderAnimation(borrowBookButton);
         } else {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("src/main/resources/View/customerBorrowBook.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/View/customerBorrowBook.fxml")));
             try {
                 Parent searchPane = loader.load();
                 CustomerBorrowBookController customerBorrowBookController = loader.getController();
@@ -297,7 +293,7 @@ public class CustomerDashboardController implements Initializable {
 
     public void logOut() throws IOException {
         Parent login = FXMLLoader.load(Objects.requireNonNull(getClass()
-                .getResource("src/main/resources/View/LoginAndRegister.fxml")));
+                .getResource("/View/LoginAndRegister.fxml")));
         Stage stage = (Stage) dashboardRoot.getScene().getWindow();
         stage.setScene(new Scene(login, 960, 640));
         stage.show();
