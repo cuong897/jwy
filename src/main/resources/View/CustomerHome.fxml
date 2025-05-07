@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="homeRoot" prefHeight="469.0" prefWidth="657.0" style="-fx-background-color: #F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerHomeController">
     <children>
-        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="586.0" prefWidth="729.0" spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="710.0" prefWidth="954.0" spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
             <children>
                 <ImageView fx:id="mainBannerImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
