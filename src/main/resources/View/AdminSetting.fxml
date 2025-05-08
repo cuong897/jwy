@@ -2,81 +2,57 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AdminSetting">
+<AnchorPane fx:id="adminRoot" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.lightlibrary.Controllers.AdminController">
+    <children>
+        <!-- TableView Quản lý Người dùng -->
+        <TableView fx:id="userTable" layoutX="16.0" layoutY="63.0" prefHeight="285.0" prefWidth="919.0">
+            <columns>
+                <TableColumn fx:id="userIdColumn" prefWidth="129.0666389465332" text="User ID" />
+                <TableColumn fx:id="fullNameColumn" prefWidth="248.5333709716797" text="Full Name" />
+                <TableColumn fx:id="usernameColumn" prefWidth="153.33331298828125" text="Username" />
+                <TableColumn fx:id="phoneColumn" prefWidth="125.33331298828125" text="Phone Number" />
+                <TableColumn fx:id="emailColumn" prefWidth="201.33343505859375" text="Email" />
+                <TableColumn fx:id="removeColumn" prefWidth="62.39990234375" text="Remove" />
+            </columns>
+        </TableView>
 
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-        <children>
-            <AnchorPane layoutY="-1.0" prefHeight="402.0" prefWidth="54.0" style="-fx-background-color: A4B465;">
-                <children>
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutY="49.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutY="91.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutY="133.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutY="175.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutY="217.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutY="352.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <ImageView fitHeight="26.0" fitWidth="33.0" layoutX="14.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-home-50.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="13.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-book-50.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="33.0" fitWidth="33.0" layoutX="11.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-bookshelf-50.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="39.0" fitWidth="33.0" layoutX="11.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-rank-48.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="14.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-setting-50.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="27.0" fitWidth="33.0" layoutX="14.0" layoutY="361.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-log-out-50.png" />
-                        </image>
-                    </ImageView>
-               <Button contentDisplay="GRAPHIC_ONLY" layoutY="257.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-               <Button contentDisplay="GRAPHIC_ONLY" layoutY="300.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: F0BB78;" text="Button" />
-                </children>
-            </AnchorPane>
-            <AnchorPane layoutX="-6.0" layoutY="-5.0" prefHeight="56.0" prefWidth="606.0" style="-fx-background-color: #A4B465;">
-                <children>
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutX="544.0" layoutY="9.0" minWidth="43.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="33.0" style="-fx-background-color: F0BB78; -fx-background-radius: 20px;" />
-                    <TextField layoutX="198.0" layoutY="16.0" prefHeight="26.0" prefWidth="316.0" style="-fx-background-color: F5ECD5;" />
-                    <Button contentDisplay="GRAPHIC_ONLY" layoutX="144.0" layoutY="16.0" minWidth="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="53.0" style="-fx-background-color: F0BB78;" text="Button" />
-                    <ImageView fitHeight="48.0" fitWidth="53.0" layoutX="9.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/BCDBookshe.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="32.0" fitWidth="35.0" layoutX="550.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-bell-50.png" />
-                        </image>
-                    </ImageView>
-                    <ImageView fitHeight="27.0" fitWidth="22.0" layoutX="160.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../Image/icons8-search-50.png" />
-                        </image>
-                    </ImageView>
-                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="77.0" layoutY="18.0" prefHeight="23.0" prefWidth="48.0" text="Label" textAlignment="CENTER" textFill="WHITE" />
-                </children>
-            </AnchorPane>
-        </children>
-    </AnchorPane>
-
+        <!-- TableView Quản lý Sách -->
+        <TableView fx:id="bookTable" layoutX="16.0" layoutY="395.0" prefHeight="296.0" prefWidth="919.0">
+            <columns>
+                <TableColumn fx:id="isbnColumn" prefWidth="146.6666603088379" text="ISBN" />
+                <TableColumn fx:id="titleColumn" prefWidth="306.9332733154297" text="Title" />
+                <TableColumn fx:id="authorColumn" prefWidth="196.26666259765625" text="Author" />
+                <TableColumn fx:id="availableColumn" minWidth="0.0" prefWidth="126.4000244140625" text="Available Number" />
+                <TableColumn fx:id="totalColumn" prefWidth="141.59991455078125" text="Total Number" />
+            </columns>
+        </TableView>
+      <Label layoutX="16.0" layoutY="19.0" prefHeight="43.0" prefWidth="66.0" text="User">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="354.0" prefHeight="43.0" prefWidth="62.0" text="Book">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="822.0" layoutY="360.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" text="Add Book">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Circle fill="#626f47" layoutX="844.0" layoutY="376.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text fill="WHITE" layoutX="835.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="23.00006103515625">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+    </children>
 </AnchorPane>
