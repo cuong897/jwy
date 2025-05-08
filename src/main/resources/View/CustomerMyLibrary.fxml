@@ -10,12 +10,10 @@
     <children>
         <TableView fx:id="bookTable" editable="true" layoutX="13.0" layoutY="52.0" prefHeight="611.0" prefWidth="930.0">
             <columns>
-                <TableColumn fx:id="isbnCol" prefWidth="139.2000389099121" text="ISBN" />
-                <TableColumn fx:id="titleCol" prefWidth="313.60001373291016" text="Title" />
-                <TableColumn fx:id="authorCol" prefWidth="179.73330688476562" text="Author" />
-                <TableColumn fx:id="borrowDateCol" prefWidth="117.3333740234375" text="Borrow Date" />
-                <TableColumn fx:id="dueDateCol" prefWidth="117.3333740234375" text="Due Date" />
-                <TableColumn fx:id="returnCol" prefWidth="59.99997558593748" text="Return" />
+                <TableColumn fx:id="isbnCol" prefWidth="195.46672439575195" text="ISBN" />
+                <TableColumn fx:id="titleCol" prefWidth="382.13331604003906" text="Title" />
+                <TableColumn fx:id="authorCol" prefWidth="235.7333984375" text="Author" />
+                <TableColumn fx:id="returnCol" prefWidth="117.0667724609375" text="Return" />
             </columns>
         </TableView>
       <Button layoutX="854.0" layoutY="11.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="75.0" style="-fx-background-color: F0BB78;" text="Return">
