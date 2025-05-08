@@ -10,95 +10,94 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="homeRoot" prefHeight="469.0" prefWidth="657.0" style="-fx-background-color: #F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerHomeController">
+<AnchorPane fx:id="homeRoot" prefHeight="600.0" prefWidth="954.0" style="-fx-background-color: #F5ECD5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerHomeController">
     <children>
-        <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="710.0" prefWidth="954.0" spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <VBox alignment="TOP_CENTER" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <ImageView fx:id="mainBannerImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@/Image/tai-anh-meo-ngau-thumbnail.jpg" />
-                    </image>
+                <ImageView fx:id="mainBannerImageView" fitHeight="180.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">
                     <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets bottom="5.0" />
                     </VBox.margin>
                 </ImageView>
-                <Label text="Label">
-                    <font>
-                        <Font name="System Italic" size="13.0" />
-                    </font>
-                </Label>
 
-                <Label fx:id="bannerWelcomeTextLabel" alignment="CENTER" prefHeight="31.0" prefWidth="194.0" text="Welcome to your library!&#10;Enjoy your reading time!" textAlignment="CENTER" wrapText="true">
+                <Label fx:id="customerWelcomeLabel" alignment="CENTER" text="Welcome Customer!" textAlignment="CENTER" wrapText="true">
                     <font>
-                        <Font name="System Italic" size="13.0" />
+                        <Font name="System Bold Italic" size="18.0" />
                     </font>
                     <VBox.margin>
-                        <Insets top="5.0" />
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </Label>
 
-                <Label fx:id="forYouTitleLabel" prefHeight="39.0" prefWidth="65.0" text="FOR YOU">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
+                <Label fx:id="forYouTitleLabel" text="FOR YOU"> <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
                     <VBox.margin>
-                        <Insets top="15.0" />
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </Label>
 
-                <HBox fx:id="forYouBooksContainer" alignment="CENTER" prefHeight="224.0" prefWidth="637.0" spacing="25.0"> <VBox.margin>
-                    <Insets top="5.0" />
-                </VBox.margin>
+                <HBox fx:id="forYouBooksContainer" alignment="CENTER" prefHeight="280.0" spacing="30.0">
                     <padding>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" /> </padding>
+                        <Insets bottom="10.0" top="10.0" />
+                    </padding>
                     <children>
-                        <VBox fx:id="bookCard1" alignment="CENTER_LEFT" prefHeight="185.0" prefWidth="160.0" spacing="8.0" style="-fx-background-color: #FFFFE0; -fx-border-color: #CCCCCC; -fx-border-width: 1px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+                        <VBox fx:id="bookCard1" alignment="TOP_CENTER" prefHeight="260.0" prefWidth="180.0" spacing="8.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #DDDDDD; -fx-border-width: 1px; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
                             </padding>
                             <children>
-                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                <Label fx:id="bookTitleLabel1" prefHeight="17.0" prefWidth="243.0" text="Book Title 1" wrapText="true">
+                                <ImageView fx:id="bookImage1" fitHeight="150.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="bookTitleLabel1" alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Book Title 1" textAlignment="CENTER" wrapText="true">
                                     <font>
-                                        <Font name="System Bold" size="12.0" />
+                                        <Font name="System Bold" size="13.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="viewButton1" mnemonicParsing="false" onAction="#handleViewButton1" prefWidth="60" />
+                                <Button fx:id="viewButton1" mnemonicParsing="false" onAction="#handleViewButton1" prefWidth="80.0" style="-fx-background-color: #A4B465; -fx-text-fill: white;" text="View">
+                                    <font><Font name="System Bold" size="12.0" /></font>
+                                </Button>
                             </children>
                         </VBox>
 
-                        <VBox fx:id="bookCard2" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="160.0" spacing="8.0" style="-fx-background-color: #FFFFE0; -fx-border-color: #CCCCCC; -fx-border-width: 1px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+                        <VBox fx:id="bookCard2" alignment="TOP_CENTER" prefHeight="260.0" prefWidth="180.0" spacing="8.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #DDDDDD; -fx-border-width: 1px; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
                             </padding>
                             <children>
-                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                <Label fx:id="bookTitleLabel2" prefHeight="17.0" prefWidth="218.0" text="Book Title 2" wrapText="true">
+                                <ImageView fx:id="bookImage2" fitHeight="150.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="bookTitleLabel2" alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Book Title 2" textAlignment="CENTER" wrapText="true">
                                     <font>
-                                        <Font name="System Bold" size="12.0" />
+                                        <Font name="System Bold" size="13.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="viewButton2" mnemonicParsing="false" onAction="#handleViewButton2" prefWidth="60" text="View" />
+                                <Button fx:id="viewButton2" mnemonicParsing="false" onAction="#handleViewButton2" prefWidth="80.0" style="-fx-background-color: #A4B465; -fx-text-fill: white;" text="View">
+                                    <font><Font name="System Bold" size="12.0" /></font>
+                                </Button>
                             </children>
                         </VBox>
 
-                        <VBox fx:id="bookCard3" alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="160.0" spacing="8.0" style="-fx-background-color: #FFFFE0; -fx-border-color: #CCCCCC; -fx-border-width: 1px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+                        <VBox fx:id="bookCard3" alignment="TOP_CENTER" prefHeight="260.0" prefWidth="180.0" spacing="8.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #DDDDDD; -fx-border-width: 1px; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 0);">
                             <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="15.0" />
                             </padding>
                             <children>
-                                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                <Label fx:id="bookTitleLabel3" prefHeight="17.0" prefWidth="242.0" text="Book Title 3" wrapText="true">
+                                <ImageView fx:id="bookImage3" fitHeight="150.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="bookTitleLabel3" alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Book Title 3" textAlignment="CENTER" wrapText="true">
                                     <font>
-                                        <Font name="System Bold" size="12.0" />
+                                        <Font name="System Bold" size="13.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="viewButton3" mnemonicParsing="false" onAction="#handleViewButton3" prefWidth="60" text="View" />
+                                <Button fx:id="viewButton3" mnemonicParsing="false" onAction="#handleViewButton3" prefWidth="80.0" style="-fx-background-color: #A4B465; -fx-text-fill: white;" text="View">
+                                    <font><Font name="System Bold" size="12.0" /></font>
+                                </Button>
                             </children>
                         </VBox>
                     </children>
                 </HBox>
             </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
         </VBox>
     </children>
 </AnchorPane>
