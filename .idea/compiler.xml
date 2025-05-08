@@ -9,5 +9,8 @@
         <module name="jwy" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="LightLibrary" target="19" />
+    </bytecodeTargetLevel>
   </component>
 </project>

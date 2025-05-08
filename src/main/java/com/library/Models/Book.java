@@ -1,35 +1,53 @@
 package com.library.Models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Book {
-    private int totalNumber;
     private int availableNumber;
     private String title;
     private String author;
-    private String publisher;
-    private String publishDate;
+
     private String description;
-    private double price;
+    private String isbn;
+    String thumbnailUrl;
+    private transient BooleanProperty selectedForReturn = new SimpleBooleanProperty(false);
+    public boolean isSelectedForReturn() {
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        return this.selectedForReturn.get();
+    }
+
+    public void setSelectedForReturn(boolean selected) {
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        this.selectedForReturn.set(selected);
+    }
+
+    public BooleanProperty selectedForReturnProperty() {
+        // Đảm bảo selectedForReturn không bao giờ null khi được truy cập
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        return this.selectedForReturn;
+    }
+
     public Book(){
 
     }
     public Book(Book other){
-        this.totalNumber = other.totalNumber;
+
         this.availableNumber = other.availableNumber;
         this.title = other.title;
         this.author = other.author;
-        this.publisher = other.publisher;
-        this.publishDate = other.publishDate;
+
         this.description = this.description;
-        this.price = other.price;
+        this.isbn = other.isbn;
     }
 
-    public int getTotalNumber() {
-        return totalNumber;
-    }
 
-    public void setTotalNumber(int totalNumber) {
-        this.totalNumber = totalNumber;
-    }
 
     public int getAvailableNumber() {
         return availableNumber;
@@ -55,21 +73,6 @@ public class Book {
         this.author = author;
     }
 
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
 
     public String getDescription() {
         return description;
@@ -79,25 +82,24 @@ public class Book {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "totalNumber=" + totalNumber +
-                ", availableNumber=" + availableNumber +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", publishDate='" + publishDate + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+    public Book(String title, String author, String description, String isbn, String thumbnailUrl) {
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.isbn = isbn;
+        this.thumbnailUrl = thumbnailUrl;
     }
 }

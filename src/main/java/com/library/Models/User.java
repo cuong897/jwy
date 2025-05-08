@@ -1,13 +1,18 @@
 package com.library.Models;
 
 public class User {
-    private String userID;
+    private String avatarUrl;
+    private int userID;
     private String name;
     private String userName;
     private String password;
     private String phoneNumber;
     private String email;
-    private String role;
+    protected Role role;
+    public enum Role {
+        CUSTOMER,
+        ADMIN
+    }
     public User(){}
     public User (User other) {
         this.userID = other.userID;
@@ -18,13 +23,13 @@ public class User {
         this.email = other.email;
         this.role = role;
     }
-    public User (String userID, String name, String userName, String password) {
+    public User (int userID, String name, String userName, String password) {
         this.userID = userID;
         this.name = name;
         this.userName = userName;
         this.password = password;
     }
-    public User (String userID, String name, String userName, String password, String phoneNumber, String email) {
+    public User (int userID, String name, String userName, String password, String phoneNumber, String email) {
         this.userID = userID;
         this.name = name;
         this.userName = userName;
@@ -33,11 +38,27 @@ public class User {
         this.email = email;
     }
 
-    public String getUserID() {
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -81,13 +102,6 @@ public class User {
         this.email = email;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public boolean IsNameValid(String name){
         if(name == null || name.trim().isEmpty()){
@@ -134,5 +148,15 @@ public class User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public User(String avatarUrl, int userID, String name, String userName, String password, String phoneNumber, String email) {
+        this.avatarUrl = avatarUrl;
+        this.userID = userID;
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 }
