@@ -117,11 +117,11 @@ public class LoginController implements Initializable {
         }
     }
     @FXML
-    protected void handleLoginButtonAction(ActionEvent event) {
+    public void handleLoginButtonAction(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
         if (username.isEmpty() || password.isEmpty()) {
-            loginNotificationLabel.setText("Please enter your username and password.");
+            loginNotificationLabel.setText("Bạn chưa nhập tài khoản hoặc mặt khẩu");
             return;
         }
         final ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -169,7 +169,7 @@ public class LoginController implements Initializable {
                 executorService.shutdown();
             } else {
                 passwordField.clear();
-                loginNotificationLabel.setText("Login Failed. Please check your credentials.");
+                loginNotificationLabel.setText("Đăng nhập thất bại, hãy kiểm tra lại thông tin");
                 executorService.shutdown();
             }
         });
