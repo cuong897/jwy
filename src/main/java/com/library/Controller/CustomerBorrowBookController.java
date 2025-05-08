@@ -248,16 +248,30 @@ public class CustomerBorrowBookController implements Initializable {
             coverImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Image/default_book_cover.png"))));
         }
 
-        if (book.getAvailableNumber() > 0) {
+        Book bookFromDb = getBookDetailsFromLocalDBIncludingAvailability(book.getIsbn());
+        int availableCount = 0;
+        boolean inLibrary = false;
+        if (bookFromDb != null) {
+            availableCount = bookFromDb.getAvailableNumber();
+            inLibrary = true;
+        }
+
+
+        if (availableCount > 0) {
             borrowButton.setDisable(false);
             borrowButton.setText("Mượn");
         } else {
-            if (getBookDetailsFromLocalDBIncludingAvailability(book.getIsbn()) == null ) {
+            if (!inLibrary) {
                 borrowButton.setText("Không có ở thư viện");
             } else {
                 borrowButton.setText("Đã hết");
             }
             borrowButton.setDisable(true);
+        }
+        if(selectedBookForDetail != null && bookFromDb != null && selectedBookForDetail.getIsbn().equals(bookFromDb.getIsbn())){
+            selectedBookForDetail.setAvailableNumber(availableCount);
+        } else if (selectedBookForDetail != null && !inLibrary) {
+            selectedBookForDetail.setAvailableNumber(0);
         }
     }
 
@@ -281,7 +295,6 @@ public class CustomerBorrowBookController implements Initializable {
                         Book freshBook = getBookDetailsFromLocalDBIncludingAvailability(selectedBookForDetail.getIsbn());
                         if (freshBook != null) {
                             selectedBookForDetail.setAvailableNumber(freshBook.getAvailableNumber()); // Cập nhật số lượng
-                            // Không cập nhật price vì đã bỏ
                             displayBookDetails(selectedBookForDetail);
                         }
                         return;
@@ -291,18 +304,6 @@ public class CustomerBorrowBookController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Lỗi", "Sách không tồn tại trong hệ thống thư viện.");
                     if(detailViewPane != null) detailViewPane.setVisible(false);
                     bookObservableList.removeIf(b -> b.getIsbn().equals(selectedBookForDetail.getIsbn()));
-                    return;
-                }
-            }
-
-            String checkPrevBorrowSql = "SELECT transactionID FROM transactions WHERE userID = ? AND isbn = ? AND returnDate IS NULL";
-            try (PreparedStatement pstmtCheckBorrow = conn.prepareStatement(checkPrevBorrowSql)) {
-                pstmtCheckBorrow.setInt(1, currentCustomer.getUserID());
-                pstmtCheckBorrow.setString(2, selectedBookForDetail.getIsbn());
-                ResultSet rsPrevBorrow = pstmtCheckBorrow.executeQuery();
-                if (rsPrevBorrow.next()) {
-                    conn.rollback();
-                    showAlert(Alert.AlertType.WARNING, "Sách đã mượn", "Bạn đã mượn cuốn sách này và chưa trả.");
                     return;
                 }
             }
@@ -320,6 +321,17 @@ public class CustomerBorrowBookController implements Initializable {
             conn.commit();
             showAlert(Alert.AlertType.INFORMATION, "Thành công", "Mượn sách thành công!");
 
+            if (currentCustomer != null) {
+                Book borrowedBookEntry = new Book();
+                borrowedBookEntry.setIsbn(bookToBorrow.getIsbn());
+                borrowedBookEntry.setTitle(bookToBorrow.getTitle());
+                borrowedBookEntry.setAuthor(bookToBorrow.getAuthor());
+                borrowedBookEntry.setThumbnailUrl(bookToBorrow.getThumbnailUrl());
+
+                currentCustomer.getCurrentlyBorrowedBookList().add(borrowedBookEntry);
+
+
+            }
             Book updatedBookFromDb = getBookDetailsFromLocalDBIncludingAvailability(selectedBookForDetail.getIsbn());
             if (updatedBookFromDb != null) {
                 selectedBookForDetail.setAvailableNumber(updatedBookFromDb.getAvailableNumber());
@@ -335,7 +347,6 @@ public class CustomerBorrowBookController implements Initializable {
                 if (index != -1) {
                     Book bookInList = bookObservableList.get(index);
                     bookInList.setAvailableNumber(selectedBookForDetail.getAvailableNumber());
-                    // Không set price
                     bookObservableList.set(index, bookInList);
                 }
             }

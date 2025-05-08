@@ -144,7 +144,6 @@ public class CustomerDashboardController implements Initializable {
     }
 
     public void gotoHome() {
-        System.out.println("Đang gọi gotoHome()");
         if (activeButton != ActiveButton.HOME) {
             activeButton = ActiveButton.HOME;
             currentLocationLabel.setText("Dashboard");
