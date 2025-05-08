@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="adminRoot" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.lightlibrary.Controllers.AdminController">
+<AnchorPane fx:id="adminRoot" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lightlibrary.Controllers.AdminController">
     <children>
         <!-- TableView Quản lý Người dùng -->
         <TableView fx:id="userTable" layoutX="16.0" layoutY="63.0" prefHeight="285.0" prefWidth="919.0">
@@ -26,11 +26,10 @@
         <!-- TableView Quản lý Sách -->
         <TableView fx:id="bookTable" layoutX="16.0" layoutY="395.0" prefHeight="296.0" prefWidth="919.0">
             <columns>
-                <TableColumn fx:id="isbnColumn" prefWidth="146.6666603088379" text="ISBN" />
-                <TableColumn fx:id="titleColumn" prefWidth="306.9332733154297" text="Title" />
-                <TableColumn fx:id="authorColumn" prefWidth="196.26666259765625" text="Author" />
-                <TableColumn fx:id="availableColumn" minWidth="0.0" prefWidth="126.4000244140625" text="Available Number" />
-                <TableColumn fx:id="totalColumn" prefWidth="141.59991455078125" text="Total Number" />
+                <TableColumn fx:id="isbnColumn" prefWidth="177.60003662109375" text="ISBN" />
+                <TableColumn fx:id="titleColumn" prefWidth="364.79998779296875" text="Title" />
+                <TableColumn fx:id="authorColumn" prefWidth="215.199951171875" text="Author" />
+                <TableColumn fx:id="availableColumn" minWidth="0.0" prefWidth="162.39990234375" text="Available Number" />
             </columns>
         </TableView>
       <Label layoutX="16.0" layoutY="19.0" prefHeight="43.0" prefWidth="66.0" text="User">
