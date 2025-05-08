@@ -1,5 +1,8 @@
 package com.library.Models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Book {
     private int availableNumber;
     private String title;
@@ -8,6 +11,29 @@ public class Book {
     private String description;
     private String isbn;
     String thumbnailUrl;
+    private transient BooleanProperty selectedForReturn = new SimpleBooleanProperty(false);
+    public boolean isSelectedForReturn() {
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        return this.selectedForReturn.get();
+    }
+
+    public void setSelectedForReturn(boolean selected) {
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        this.selectedForReturn.set(selected);
+    }
+
+    public BooleanProperty selectedForReturnProperty() {
+        // Đảm bảo selectedForReturn không bao giờ null khi được truy cập
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        return this.selectedForReturn;
+    }
+
     public Book(){
 
     }

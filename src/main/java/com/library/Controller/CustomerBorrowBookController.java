@@ -277,24 +277,30 @@ public class CustomerBorrowBookController implements Initializable {
 
     private void processBorrowing(Book bookToBorrow) {
         if (bookToBorrow == null || currentCustomer == null) {
-            showAlert(Alert.AlertType.ERROR, "Lỗi", "Thông tin không đủ để mượn sách.");
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Thông tin không đủ để mượn sách (thiếu sách hoặc người dùng).");
+            return;
+        }
+        if (bookToBorrow.getIsbn() == null || bookToBorrow.getIsbn().isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi Sách", "Sách không có mã ISBN hợp lệ.");
             return;
         }
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
-
             String checkAvailabilitySql = "SELECT availableNumber FROM books WHERE isbn = ? FOR UPDATE";
+            int currentAvailable = -1;
             try (PreparedStatement pstmtCheck = conn.prepareStatement(checkAvailabilitySql)) {
-                pstmtCheck.setString(1, selectedBookForDetail.getIsbn());
+                pstmtCheck.setString(1, bookToBorrow.getIsbn());
                 ResultSet rsCheck = pstmtCheck.executeQuery();
                 if (rsCheck.next()) {
-                    if (rsCheck.getInt("availableNumber") <= 0) {
+                    currentAvailable = rsCheck.getInt("availableNumber");
+                    if (currentAvailable <= 0) {
                         conn.rollback();
-                        showAlert(Alert.AlertType.WARNING, "Hết sách", "Xin lỗi, sách này vừa được mượn hết.");
-                        Book freshBook = getBookDetailsFromLocalDBIncludingAvailability(selectedBookForDetail.getIsbn());
-                        if (freshBook != null) {
-                            selectedBookForDetail.setAvailableNumber(freshBook.getAvailableNumber()); // Cập nhật số lượng
+                        showAlert(Alert.AlertType.WARNING, "Hết sách", "Xin lỗi, sách này đã hết.");
+                        if (selectedBookForDetail != null && selectedBookForDetail.getIsbn().equals(bookToBorrow.getIsbn())) {
+                            selectedBookForDetail.setAvailableNumber(0);
                             displayBookDetails(selectedBookForDetail);
                         }
                         return;
@@ -302,62 +308,58 @@ public class CustomerBorrowBookController implements Initializable {
                 } else {
                     conn.rollback();
                     showAlert(Alert.AlertType.ERROR, "Lỗi", "Sách không tồn tại trong hệ thống thư viện.");
-                    if(detailViewPane != null) detailViewPane.setVisible(false);
-                    bookObservableList.removeIf(b -> b.getIsbn().equals(selectedBookForDetail.getIsbn()));
                     return;
                 }
             }
 
             String updateBookSql = "UPDATE books SET availableNumber = availableNumber - 1 WHERE isbn = ?";
             try (PreparedStatement pstmtUpdateBook = conn.prepareStatement(updateBookSql)) {
-                pstmtUpdateBook.setString(1, selectedBookForDetail.getIsbn());
-                if (pstmtUpdateBook.executeUpdate() == 0) {
+                pstmtUpdateBook.setString(1, bookToBorrow.getIsbn());
+                int affectedRows = pstmtUpdateBook.executeUpdate();
+                if (affectedRows == 0) {
                     conn.rollback();
-                    showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể cập nhật số lượng sách.");
+                    showAlert(Alert.AlertType.ERROR, "Lỗi Cập Nhật", "Không thể cập nhật số lượng sách.");
                     return;
                 }
             }
 
-            conn.commit();
-            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Mượn sách thành công!");
-
-            if (currentCustomer != null) {
-                Book borrowedBookEntry = new Book();
-                borrowedBookEntry.setIsbn(bookToBorrow.getIsbn());
-                borrowedBookEntry.setTitle(bookToBorrow.getTitle());
-                borrowedBookEntry.setAuthor(bookToBorrow.getAuthor());
-                borrowedBookEntry.setThumbnailUrl(bookToBorrow.getThumbnailUrl());
-
-                currentCustomer.getCurrentlyBorrowedBookList().add(borrowedBookEntry);
-
-
+            String insertTransactionSql = "INSERT INTO transactions (userID, isbn) VALUES (?, ?)";
+            try (PreparedStatement pstmtInsert = conn.prepareStatement(insertTransactionSql)) {
+                pstmtInsert.setInt(1, currentCustomer.getUserID());
+                pstmtInsert.setString(2, bookToBorrow.getIsbn());
+                pstmtInsert.executeUpdate(); // Mỗi lần mượn sẽ thêm một dòng mới
             }
-            Book updatedBookFromDb = getBookDetailsFromLocalDBIncludingAvailability(selectedBookForDetail.getIsbn());
-            if (updatedBookFromDb != null) {
-                selectedBookForDetail.setAvailableNumber(updatedBookFromDb.getAvailableNumber());
-                displayBookDetails(selectedBookForDetail);
 
-                int index = -1;
-                for(int i=0; i<bookObservableList.size(); i++){
-                    if(bookObservableList.get(i).getIsbn().equals(selectedBookForDetail.getIsbn())){
-                        index = i;
-                        break;
-                    }
-                }
-                if (index != -1) {
-                    Book bookInList = bookObservableList.get(index);
-                    bookInList.setAvailableNumber(selectedBookForDetail.getAvailableNumber());
-                    bookObservableList.set(index, bookInList);
-                }
+            conn.commit();
+
+            Book borrowedBookEntry = new Book(); // Tạo bản sao
+            borrowedBookEntry.setIsbn(bookToBorrow.getIsbn());
+            borrowedBookEntry.setTitle(bookToBorrow.getTitle());
+            borrowedBookEntry.setAuthor(bookToBorrow.getAuthor());
+            borrowedBookEntry.setThumbnailUrl(bookToBorrow.getThumbnailUrl());
+            currentCustomer.getCurrentlyBorrowedBookList().add(borrowedBookEntry);
+
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Mượn sách '" + bookToBorrow.getTitle() + "' thành công!");
+            int newAvailableCount = currentAvailable - 1;
+            if (selectedBookForDetail != null && selectedBookForDetail.getIsbn().equals(bookToBorrow.getIsbn())) {
+                selectedBookForDetail.setAvailableNumber(newAvailableCount);
+                displayBookDetails(selectedBookForDetail);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Lỗi CSDL", "Xảy ra lỗi khi mượn sách: " + e.getMessage());
-            try (Connection connDb = DatabaseConnection.getConnection()) {
-                if (connDb != null && !connDb.getAutoCommit()) connDb.rollback();
-            } catch (SQLException exRollback) {
-                exRollback.printStackTrace();
+            if (conn != null) {
+                try {
+                    if (!conn.getAutoCommit()) conn.rollback();
+                } catch (SQLException exRollback) { exRollback.printStackTrace(); }
+            }
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                    conn.close();
+                } catch (SQLException e) { e.printStackTrace(); }
             }
         }
     }

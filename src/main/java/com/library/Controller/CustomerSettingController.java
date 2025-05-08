@@ -16,8 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import  avax.swing.*;
-
 import javax.swing.*;
 import java.io.File;
 import java.net.URL;
@@ -45,13 +43,11 @@ public class CustomerSettingController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     @FXML
-    private TextField changeUserNameField;
+    private TextField changeNameField;
     @FXML
     private TextField changePhoneNumberField;
     @FXML
     private TextField changeGmailField;
-    @FXML
-    private TextField changeNameField;
     @FXML
     private Button changeAvatarButton;
     @FXML
@@ -112,8 +108,8 @@ public class CustomerSettingController implements Initializable {
         changeGmailField.setOnAction(event -> {
             handleChangeGmail();
         });
-        changeUserNameField.setOnAction(event -> {
-            handleChangeUserName();
+        changeNameField.setOnAction(event -> {
+            handleChangeName();
         });
 
     }
@@ -239,12 +235,18 @@ public class CustomerSettingController implements Initializable {
             System.err.println("Lỗi khi cập nhật email: " + e.getMessage());
         }
     }
-
-    public void handleChangeUserName() {
-        String newUserName = changeUserNameField.getText();
+    public void handleChangeName() {
+        String newUserName = changeNameField.getText();
         if (newUserName.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền tên người dùng mới");
             return;
+        }
+        parentController.getCurrentCustomer().setName(newUserName);
+        userNameLabel.setText(newUserName);
+        changeNameField.clear();
+
+        if (parentController != null) {
+            parentController.refreshCustomerDisplayInfo();
         }
         try (Connection connection = DatabaseConnection.getConnection()) {
             String sql = "UPDATE customer SET userName = ? WHERE userID = ?";
@@ -256,6 +258,7 @@ public class CustomerSettingController implements Initializable {
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Cập nhật tên người dùng thành công");
                 userNameLabel.setText(newUserName);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Cập nhật tên người dùng không thành công");
             }

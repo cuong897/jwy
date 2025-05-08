@@ -145,6 +145,9 @@ public class CustomerDashboardController implements Initializable {
 
     public void gotoHome() {
         if (activeButton != ActiveButton.HOME) {
+            FXMLLoader loader = cache.get("/View/CustomerHome.fxml");
+            CustomerHomeController controller = loader.getController();
+            controller.setParentController(CustomerDashboardController.this);
             activeButton = ActiveButton.HOME;
             currentLocationLabel.setText("Dashboard");
             navigationBorderAnimation(HomeButton);
@@ -175,6 +178,9 @@ public class CustomerDashboardController implements Initializable {
 
     public void gotoMyLibrary() {
         if (activeButton != ActiveButton.MY_LIBRARY) {
+            FXMLLoader loader = cache.get("/View/CustomerMyLibrary.fxml");
+            CustomerMyLibraryController controller = loader.getController();
+            controller.setDashboardController(CustomerDashboardController.this);
             activeButton = ActiveButton.MY_LIBRARY;
             currentLocationLabel.setText("My Library");
             navigationBorderAnimation(myLibraryButton);
@@ -185,10 +191,10 @@ public class CustomerDashboardController implements Initializable {
 
     private void preLoad() {
         String[] fxmlPaths = {
-                "/Views/CustomerHome.fxml",
-                "/Views/CustomerBorrowBook.fxml",
-                "/Views/CustomerSetting.fxml",
-                "/Views/CustomerMyLibrary.fxml",
+                "/View/CustomerHome.fxml",
+                "/View/CustomerBorrowBook.fxml",
+                "/View/CustomerSetting.fxml",
+                "/View/CustomerMyLibrary.fxml",
         };
 
         for (String fxmlPath : fxmlPaths) {
@@ -289,7 +295,14 @@ public class CustomerDashboardController implements Initializable {
         }
         gotoBorrowBook();
     }
-
+    public void refreshCustomerDisplayInfo() {
+        if (this.currentCustomer != null) {
+            if (userNameLabel != null) {
+                userNameLabel.setText(this.currentCustomer.getName() == null ?
+                        "Name of customer" : this.currentCustomer.getName());
+            }
+        }
+    }
     public void logOut() throws IOException {
         Parent login = FXMLLoader.load(Objects.requireNonNull(getClass()
                 .getResource("/View/LoginAndRegister.fxml")));
