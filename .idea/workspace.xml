@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f6e49ec0-8d5b-419e-99e6-9fd9a2ea231e" name="Changes" comment="Admin Setting">
+      <change afterPath="$PROJECT_DIR$/.idea/jwy.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DucNguyen22-HP"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/cuong897/jwy",
+    "accountId": "54620159-927d-4507-b14f-2b6cef4e51a5"
+  }
+}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2whdL4ce49N2pYUvy0PgWOwcw0T" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "duc",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Code du phong/LightLibrary",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6e49ec0-8d5b-419e-99e6-9fd9a2ea231e" name="Changes" comment="" />
+      <created>1746497679534</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746497679534</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Customer Dashboard">
+      <option name="closed" value="true" />
+      <created>1746605509038</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746605509038</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Customer Book">
+      <option name="closed" value="true" />
+      <created>1746606221401</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746606221401</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Customer Book">
+      <option name="closed" value="true" />
+      <created>1746606263981</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1746606263987</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Ảnh Home">
+      <option name="closed" value="true" />
+      <created>1746606349640</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1746606349640</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Ảnh Logo">
+      <option name="closed" value="true" />
+      <created>1746606469000</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1746606469000</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Ảnh Logo">
+      <option name="closed" value="true" />
+      <created>1746606614518</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1746606614518</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Ảnh Logo">
+      <option name="closed" value="true" />
+      <created>1746606802631</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1746606802631</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Customer Home">
+      <option name="closed" value="true" />
+      <created>1746607018615</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1746607018615</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Customer Home">
+      <option name="closed" value="true" />
+      <created>1746613686653</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1746613686653</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Customer Setting">
+      <option name="closed" value="true" />
+      <created>1746613833554</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1746613833554</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Customer Home">
+      <option name="closed" value="true" />
+      <created>1746617801223</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1746617801223</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Customer Borrowed Book">
+      <option name="closed" value="true" />
+      <created>1746617863526</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1746617863526</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Customer Log Out">
+      <option name="closed" value="true" />
+      <created>1746617888414</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1746617888414</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Customer My Library">
+      <option name="closed" value="true" />
+      <created>1746617910156</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1746617910156</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Customer Notification">
+      <option name="closed" value="true" />
+      <created>1746617929625</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1746617929625</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Customer Ranking">
+      <option name="closed" value="true" />
+      <created>1746618010237</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1746618010237</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Customer Return Book">
+      <option name="closed" value="true" />
+      <created>1746618036940</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1746618036940</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Customer Wrong Password">
+      <option name="closed" value="true" />
+      <created>1746618062041</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1746618062041</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Customer Delete Notification">
+      <option name="closed" value="true" />
+      <created>1746618083416</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1746618083416</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Admin Setting">
+      <option name="closed" value="true" />
+      <created>1746618102904</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1746618102904</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Customer Dashboard" />
+    <MESSAGE value="Customer Book" />
+    <MESSAGE value="Ảnh Home" />
+    <MESSAGE value="Ảnh Logo" />
+    <MESSAGE value="Customer Setting" />
+    <MESSAGE value="Customer Home" />
+    <MESSAGE value="Customer Borrowed Book" />
+    <MESSAGE value="Customer Log Out" />
+    <MESSAGE value="Customer My Library" />
+    <MESSAGE value="Customer Notification" />
+    <MESSAGE value="Customer Ranking" />
+    <MESSAGE value="Customer Return Book" />
+    <MESSAGE value="Customer Wrong Password" />
+    <MESSAGE value="Customer Delete Notification" />
+    <MESSAGE value="Admin Setting" />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin Setting" />
+  </component>
+</project>
