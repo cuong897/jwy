@@ -106,11 +106,11 @@ public class LoginController implements Initializable {
     public void handleRegisterLinkAction() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass()
-                    .getResource("/com/lightlibrary/View/Register.fxml"));
+                    .getResource("/com/library/View/Register.fxml"));
             Parent register = loader.load();
             Stage stage = (Stage) ((Node) registerLink).getScene().getWindow();
             Platform.runLater(stage::centerOnScreen);
-            stage.setScene(new Scene(register, 1440, 900));
+            stage.setScene(new Scene(register, 960, 640));
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -139,7 +139,7 @@ public class LoginController implements Initializable {
                 if (user instanceof Customer) {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass()
-                                .getResource("/com/lightlibrary/View/CustomerDashboard.fxml"));
+                                .getResource("/com/library/View/CustomerDashboard.fxml"));
                         Parent dashboard = loader.load();
                         CustomerDashboardController controller = loader.getController();
                         controller.setCustomer((Customer) user);
@@ -148,7 +148,7 @@ public class LoginController implements Initializable {
                         stage.setScene(new Scene(dashboard, 1440, 900));
                         stage.show();
                     } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                        System.out.println("ncj");
                     }
                 } else if (user instanceof ADMIN) {
                     try {

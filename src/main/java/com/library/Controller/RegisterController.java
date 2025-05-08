@@ -29,6 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class RegisterController implements Initializable {
+    @FXML
     private Label registerNotificationLabel;
     @FXML
     AnchorPane registerRoot;
@@ -59,9 +60,10 @@ public class RegisterController implements Initializable {
         loginLink.setOnAction(event -> handleLoginLinkAction());
         userNameField.setOnAction(this::handleRegisterButtonAction);
     }
+    @FXML
     private void handleLoginLinkAction() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../Views/LoginAndRegister.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) registerRoot.getScene().getWindow();
             stage.setScene(new Scene(root, 960, 640));
@@ -83,6 +85,7 @@ public class RegisterController implements Initializable {
             return false;
         }
     }
+    @FXML
     private void handleRegisterButtonAction(ActionEvent event) {
         String name = NameField.getText();
         String email = EmailField.getText();
