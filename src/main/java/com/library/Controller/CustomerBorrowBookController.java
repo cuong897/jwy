@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
@@ -32,6 +34,8 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class CustomerBorrowBookController implements Initializable {
+    @FXML private AnchorPane rootPane;
+    @FXML private Label statusLabel;
 
     @FXML private ImageView coverImageView;
     @FXML private Label titleLabel;
@@ -55,20 +59,46 @@ public class CustomerBorrowBookController implements Initializable {
             @Override
             public ListCell<Book> call(ListView<Book> listView) {
                 return new ListCell<Book>() {
+                    private ImageView imageView = new ImageView();
+                    private Label label = new Label();
+                    private HBox hbox = new HBox(10);
+                    {
+                        imageView.setPreserveRatio(true);
+                        imageView.setFitHeight(60);
+                        hbox.getChildren().addAll(imageView, label);
+
+                    }
+
                     @Override
                     protected void updateItem(Book book, boolean empty) {
                         super.updateItem(book, empty);
-                        if (empty || book == null || book.getTitle() == null) {
+                        if (empty || book == null) {
                             setText(null);
                             setGraphic(null);
                         } else {
-                            setText(book.getTitle() + (book.getAuthor() != null ? " - " + book.getAuthor() : ""));
+                            String bookDisplayText = book.getTitle() + (book.getAuthor() != null ? " - " + book.getAuthor() : "");
+                            label.setText(bookDisplayText);
+                            label.setWrapText(true);
+
+                            String thumbnailUrl = book.getThumbnailUrl();
+                            if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
+                                try {
+                                    Image image = new Image(thumbnailUrl, true);
+                                    imageView.setImage(image);
+                                } catch (Exception e) {
+                                    System.err.println("Không thể tải thumbnail: " + thumbnailUrl + " Lỗi: " + e.getMessage());
+                                    imageView.setImage(null);
+                                }
+                            } else {
+                                imageView.setImage(null);
+                            }
+                            setGraphic(hbox);
+                            setText(null);
                         }
                     }
                 };
             }
         });
-
         booksListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 fetchFullBookDetailsAndDisplay(newValue.getIsbn(), newValue);
@@ -204,7 +234,7 @@ public class CustomerBorrowBookController implements Initializable {
         new Thread(fetchDbTask).start();
     }
     private Book getBookDetailsFromLocalDBIncludingAvailability(String isbn) {
-        String sql = "SELECT title, author, description, availableNumber, thumbnailUrl FROM books WHERE isbn = ?";
+        String sql = "SELECT title, author, description, availableNumber, thumbnail FROM books WHERE isbn = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, isbn);
@@ -216,7 +246,7 @@ public class CustomerBorrowBookController implements Initializable {
                 book.setAuthor(rs.getString("author"));
                 book.setDescription(rs.getString("description"));
                 book.setAvailableNumber(rs.getInt("availableNumber"));
-                book.setThumbnailUrl(rs.getString("thumbnailUrl"));
+                book.setThumbnailUrl(rs.getString("thumbnail"));
                 return book;
             }
         } catch (SQLException e) {
@@ -235,7 +265,7 @@ public class CustomerBorrowBookController implements Initializable {
         authorLabel.setText("Tác giả: " + (book.getAuthor() != null ? book.getAuthor() : "N/A"));
         isbnLabel.setText("ISBN: " + (book.getIsbn() != null ? book.getIsbn() : "N/A"));
         descriptionTextArea.setText(book.getDescription() != null ? book.getDescription() : "Không có mô tả.");
-
+        statusLabel.setText( book.getAvailableNumber() > 0 ? "Có sẵn" : "Không có sẵn" );
         try {
             String imageUrl = book.getThumbnailUrl();
             if (imageUrl != null && !imageUrl.isEmpty()) {
@@ -327,12 +357,12 @@ public class CustomerBorrowBookController implements Initializable {
             try (PreparedStatement pstmtInsert = conn.prepareStatement(insertTransactionSql)) {
                 pstmtInsert.setInt(1, currentCustomer.getUserID());
                 pstmtInsert.setString(2, bookToBorrow.getIsbn());
-                pstmtInsert.executeUpdate(); // Mỗi lần mượn sẽ thêm một dòng mới
+                pstmtInsert.executeUpdate();
             }
 
             conn.commit();
 
-            Book borrowedBookEntry = new Book(); // Tạo bản sao
+            Book borrowedBookEntry = new Book();
             borrowedBookEntry.setIsbn(bookToBorrow.getIsbn());
             borrowedBookEntry.setTitle(bookToBorrow.getTitle());
             borrowedBookEntry.setAuthor(bookToBorrow.getAuthor());
