@@ -352,7 +352,11 @@ public class CustomerBorrowBookController implements Initializable {
                     return;
                 }
             }
-
+            String updateBorrowCountSql = "UPDATE books SET borrowCount = borrowCount + 1 WHERE isbn = ?";
+            try (PreparedStatement pstmtUpdateBorrowCount = conn.prepareStatement(updateBorrowCountSql)) {
+                pstmtUpdateBorrowCount.setString(1, bookToBorrow.getIsbn());
+                pstmtUpdateBorrowCount.executeUpdate();
+            }
             String insertTransactionSql = "INSERT INTO transactions (userID, isbn) VALUES (?, ?)";
             try (PreparedStatement pstmtInsert = conn.prepareStatement(insertTransactionSql)) {
                 pstmtInsert.setInt(1, currentCustomer.getUserID());
@@ -360,8 +364,11 @@ public class CustomerBorrowBookController implements Initializable {
                 pstmtInsert.executeUpdate();
             }
 
-            conn.commit();
 
+            conn.commit();
+            if (parentDashboardController != null) {
+                parentDashboardController.notifyRankingNeedsRefresh();
+            }
             Book borrowedBookEntry = new Book();
             borrowedBookEntry.setIsbn(bookToBorrow.getIsbn());
             borrowedBookEntry.setTitle(bookToBorrow.getTitle());
