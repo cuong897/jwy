@@ -7,9 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="adminRoot" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lightlibrary.Controllers.AdminController">
+<AnchorPane fx:id="adminRoot" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.ADMINController">
     <children>
-        <!-- TableView Quản lý Người dùng -->
         <TableView fx:id="userTable" layoutX="16.0" layoutY="63.0" prefHeight="285.0" prefWidth="919.0">
             <columns>
                 <TableColumn fx:id="userIdColumn" prefWidth="129.0666389465332" text="User ID" />
@@ -21,7 +20,6 @@
             </columns>
         </TableView>
 
-        <!-- TableView Quản lý Sách -->
         <TableView fx:id="bookTable" layoutX="16.0" layoutY="395.0" prefHeight="296.0" prefWidth="919.0">
             <columns>
                 <TableColumn fx:id="isbnColumn" prefWidth="177.60003662109375" text="ISBN" />
@@ -30,16 +28,16 @@
                 <TableColumn fx:id="availableColumn" minWidth="0.0" prefWidth="162.39990234375" text="Available Number" />
             </columns>
         </TableView>
-      <Label layoutX="16.0" layoutY="19.0" prefHeight="43.0" prefWidth="66.0" text="User">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="15.0" layoutY="354.0" prefHeight="43.0" prefWidth="62.0" text="Book">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
-      <TextField layoutX="725.0" layoutY="363.0" prefHeight="26.0" prefWidth="211.0" promptText="Find books" />
+        <Label layoutX="16.0" layoutY="19.0" prefHeight="43.0" prefWidth="66.0" text="User">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+        <Label layoutX="15.0" layoutY="354.0" prefHeight="43.0" prefWidth="62.0" text="Book">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+        <TextField fx:id="searchBookToAddField" layoutX="750.0" layoutY="363.0" prefHeight="25.0" prefWidth="185.0" promptText="Tìm sách bạn muốn thêm" />
     </children>
 </AnchorPane>
