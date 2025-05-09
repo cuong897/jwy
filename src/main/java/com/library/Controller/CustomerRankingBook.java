@@ -36,7 +36,7 @@ public class CustomerRankingBook implements Initializable {
 
     private ObservableList<BookRankingEntry> bookRankingList = FXCollections.observableArrayList();
 
-    private CustomerDashboardController dashboardController; // Tùy chọn: để tương tác với dashboard chính
+    private CustomerDashboardController dashboardController;
 
     public void setDashboardController(CustomerDashboardController dashboardController) {
         this.dashboardController = dashboardController;
@@ -51,7 +51,7 @@ public class CustomerRankingBook implements Initializable {
         loadRankingData();
     }
     public void refreshRankingDataPublic() {
-        loadRankingData(); // Gọi lại phương thức tải dữ liệu
+        loadRankingData();
     }
     private void loadRankingData() {
         ObservableList<BookRankingEntry> newBookRankingList = FXCollections.observableArrayList();
