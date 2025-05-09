@@ -8,7 +8,7 @@ public class DatabaseConnection {
     public static Connection getConnection() {
         String databaseName = "libraryDB";
         String databaseUser = "root";
-        String databasePassword = "Hhjoo2202"; // Thay đổi password của bạn vào đây
+        String databasePassword = ""; // Thay đổi password của bạn vào đây
         String databaseUrl = "jdbc:mysql://localhost:3306/" + databaseName;
         Connection connection = null;
         try {
