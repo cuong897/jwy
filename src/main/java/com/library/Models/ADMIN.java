@@ -11,6 +11,6 @@ public class ADMIN extends User{
     }
     public Customer convertADMINtoCustomer(ADMIN admin) {
         return new Customer(this.getAvatarUrl(),this.getUserID(), this.getName(), this.getUserName(),
-                this.getPassword(), this.getPhoneNumber(), this.getEmail());
+                this.getPassword(), this.getPhoneNumber(), this.getEmail(), Role.ADMIN);
     }
 }

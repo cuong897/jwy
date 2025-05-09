@@ -14,8 +14,8 @@ import java.util.List;
 
 public class GoogleBookAPI {
     private static final Long MAX_RESULTS_PER_QUERY = 30L;
-    private static final String API_KEY = "";
-    private static final String APPLICATION_NAME = "";
+    private static final String API_KEY = "AIzaSyCn2_cox32slijmKI5HB9CTytpK9_z7Bdo";
+    private static final String APPLICATION_NAME = ":((";
     public static List<Volume> searchBooks(String query) throws IOException {
         Books books = new Books.Builder(new com.google.api.client.http.javanet.NetHttpTransport(),
                 new com.google.api.client.json.gson.GsonFactory(), null)
