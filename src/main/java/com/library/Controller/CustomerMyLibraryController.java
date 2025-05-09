@@ -50,6 +50,11 @@ public class CustomerMyLibraryController implements Initializable {
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         authorCol.setCellValueFactory(new PropertyValueFactory<>("author"));
 
+        returnCol.setCellValueFactory(new PropertyValueFactory<>("selectedForReturn"));
+        returnCol.setCellFactory(CheckBoxTableCell.forTableColumn(returnCol));
+        returnCol.setEditable(false);
+        returnCol.setText("Return");
+
         bookTable.setItems(currentlyBorrowedBooksList);
         bookTable.setEditable(true);
 
@@ -92,7 +97,7 @@ public class CustomerMyLibraryController implements Initializable {
         exitReturnMode();
         currentlyBorrowedBooksList.clear();
 
-        String sql = "SELECT b.isbn, b.title, b.author, b.thumbnailUrl " +
+        String sql = "SELECT b.isbn, b.title, b.author, b.thumbnail " +
                 "FROM books b JOIN transactions t ON b.isbn = t.isbn " +
                 "WHERE t.userID = ?";
 
@@ -108,7 +113,7 @@ public class CustomerMyLibraryController implements Initializable {
                 book.setIsbn(rs.getString("isbn"));
                 book.setTitle(rs.getString("title"));
                 book.setAuthor(rs.getString("author"));
-                book.setThumbnailUrl(rs.getString("thumbnailUrl"));
+                book.setThumbnailUrl(rs.getString("thumbnail"));
                 book.setSelectedForReturn(false);
                 booksFromDb.add(book);
             }
@@ -141,8 +146,7 @@ public class CustomerMyLibraryController implements Initializable {
         okButton.setVisible(true);
 
         returnCol.setText("Select");
-        returnCol.setCellValueFactory(new PropertyValueFactory<>("selectedForReturn"));
-        returnCol.setCellFactory(CheckBoxTableCell.forTableColumn(returnCol));
+        returnCol.setEditable(true);
 
         for (Book book : currentlyBorrowedBooksList) {
             book.setSelectedForReturn(false);
@@ -160,10 +164,8 @@ public class CustomerMyLibraryController implements Initializable {
         switchToReturnModeButton.setVisible(true);
         backButton.setVisible(false);
         okButton.setVisible(false);
-
         returnCol.setText("Return");
-        returnCol.setCellFactory(null);
-        returnCol.setCellValueFactory(null);
+        returnCol.setEditable(false);
 
         for (Book book : currentlyBorrowedBooksList) {
             book.setSelectedForReturn(false);
@@ -177,12 +179,10 @@ public class CustomerMyLibraryController implements Initializable {
         List<Book> selectedBooks = currentlyBorrowedBooksList.stream()
                 .filter(Book::isSelectedForReturn)
                 .collect(Collectors.toList());
-
         if (selectedBooks.isEmpty()) {
             showAlert(Alert.AlertType.INFORMATION, "No Selection", "Please select at least one book to return.");
             return;
         }
-
         Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmAlert.setTitle("Confirm Return");
         confirmAlert.setHeaderText("Are you sure you want to return " + selectedBooks.size() + " book(s)?");

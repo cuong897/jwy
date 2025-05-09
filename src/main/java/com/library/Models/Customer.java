@@ -40,6 +40,8 @@ public class Customer extends User{
         this.currentlyBorrowedBookList = currentlyBorrowedBookList;
     }
 
-    public Customer(String avatarUrl, int userID, String name, String userName, String password, String phoneNumber, String email) {
-        super(avatarUrl, userID, name, userName, password, phoneNumber, email);}
+    public Customer(String avatarUrl, int userID, String name, String userName, String password, String phoneNumber, String email, Role role) {
+        super(avatarUrl, userID, name, userName, password, phoneNumber, email);
+        this.role = role;
+    }
 }

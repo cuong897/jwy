@@ -1,6 +1,7 @@
 package com.library.Controller;
 
 import com.library.Models.Customer;
+import com.library.Models.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.concurrent.Task;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -28,6 +30,10 @@ import java.util.ResourceBundle;
 
 public class CustomerDashboardController implements Initializable {
     @FXML
+    private ImageView ADMINButtonView;
+    @FXML
+    private Button adminPanelButton;
+    @FXML
     private Button logOutButton;
     @FXML
     private AnchorPane dashboardRoot;
@@ -36,28 +42,14 @@ public class CustomerDashboardController implements Initializable {
     @FXML
     private Label currentLocationLabel;
     @FXML
-    private Label welcomeLabel;
-    @FXML
     private Button HomeButton;
-    @FXML
-    private ImageView HomeImage;
     @FXML
     private Button settingButton;
     @FXML
-    private ImageView settingImage;
-    @FXML
     private Button borrowBookButton;
     @FXML
-    private ImageView borrowBookImage;
-    @FXML
     private Button myLibraryButton;
-    @FXML
-    private ImageView myLibraryImage;
 
-    @FXML
-    private Pane avatarContainer;
-    @FXML
-    private ImageView avatarImage;
     @FXML
     private Label userNameLabel;
     @FXML
@@ -77,9 +69,38 @@ public class CustomerDashboardController implements Initializable {
 
     public void setCustomer(Customer customer) {
         this.currentCustomer = customer;
-        welcomeLabel.setText("Welcome," + currentCustomer.getName() + " !");
+        userNameLabel.setText(currentCustomer.getName() == null ?
+                "Name of customer" : currentCustomer.getName());
+        if (adminPanelButton != null) {
+            adminPanelButton.setVisible(false);
+            adminPanelButton.setManaged(false);
+        } else {
+            System.err.println("Cảnh báo: adminPanelButton là null trong setCustomer. Đảm bảo nó đã được inject từ FXML.");
+        }
+        if (customer != null) {
+            if (customer.getRole() == User.Role.ADMIN) {
+                if (adminPanelButton != null) {
+                    adminPanelButton.setVisible(true);
+                    adminPanelButton.setManaged(true);
+                }
+            } else {
+                if (adminPanelButton != null) {
+                    adminPanelButton.setVisible(false);
+                    adminPanelButton.setManaged(false);
+                }
+            }
+            if (userNameLabel != null) {
+                userNameLabel.setText(currentCustomer.getName());
+            }
+        }
         preLoad();
-        gotoHome();
+        if (HomeButton != null && navigationBorderPane != null) {
+            javafx.application.Platform.runLater(() -> {
+                gotoHome();
+            });
+        } else {
+            System.err.println("Lỗi: HomeButton hoặc navigationBorderPane chưa được khởi tạo khi gọi setCustomer.");
+        }
     }
 
     private Map<String, FXMLLoader> cache = new HashMap<>();
@@ -88,6 +109,7 @@ public class CustomerDashboardController implements Initializable {
 
 
     public enum ActiveButton {
+        ADMIN,
         HOME,
         SETTING,
         BORROW_BOOK,
@@ -95,6 +117,9 @@ public class CustomerDashboardController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (adminPanelButton != null) { // Kiểm tra null để tránh lỗi nếu FXML chưa cập nhật
+            adminPanelButton.setOnAction(e -> gotoAdminPanel());
+        }
         settingButton.setOnAction(e -> {
             try {
                 gotoSetting();
@@ -128,129 +153,200 @@ public class CustomerDashboardController implements Initializable {
         });
     }
 
-    private void playClickSound() {
-        String soundPath = Objects.requireNonNull(getClass().getResource("/Sounds/clickSound.wav")).toString();
-        javafx.scene.media.AudioClip clickSound = new javafx.scene.media.AudioClip(soundPath);
-        clickSound.play();
-    }
+//    private void playClickSound() {
+//        String soundPath = Objects.requireNonNull(getClass().getResource("/Sounds/clickSound.wav")).toString();
+//        javafx.scene.media.AudioClip clickSound = new javafx.scene.media.AudioClip(soundPath);
+//        clickSound.play();
+//    }
 
     private void navigationBorderAnimation(Button activeButton) {
-        TranslateTransition navigationButtonBorderTransition = new TranslateTransition(Duration.seconds(0.15),
+        if (activeButton.getScene() == null || activeButton.getParent() == null) {
+            System.out.println("Cảnh báo: Nút " + activeButton.getId() + " chưa sẵn sàng để lấy layoutY.");
+        }
+
+        TranslateTransition navigationButtonBorderTransition = new TranslateTransition(Duration.seconds(0.5),
                 navigationBorderPane);
-        navigationButtonBorderTransition.setToY(activeButton.getLayoutY() - 10 - navigationBorderPane.getLayoutY());
+        double buttonCenterYInVBox = activeButton.getLayoutY() + activeButton.getHeight() / 2;
+        double vBoxLayoutY = activeButton.getParent().getLayoutY();
+        double absoluteButtonCenterY = vBoxLayoutY + buttonCenterYInVBox;
+        double targetNavigationPaneY = absoluteButtonCenterY - (navigationBorderPane.getHeight() / 2);
+        navigationButtonBorderTransition.setToY(targetNavigationPaneY);
+        navigationButtonBorderTransition.setToY(targetNavigationPaneY - navigationBorderPane.getLayoutY());
         navigationButtonBorderTransition.play();
-
-        playClickSound();
+//        playClickSound();
     }
-
+    public void gotoAdminPanel() {
+        if (activeButton != ActiveButton.ADMIN) {
+            loadPane("/com/library/View/ADMIN.fxml");
+            activeButton = ActiveButton.ADMIN;
+            currentLocationLabel.setText("ADMIN");
+            navigationBorderAnimation(adminPanelButton);
+        }
+    }
     public void gotoHome() {
         if (activeButton != ActiveButton.HOME) {
-            FXMLLoader loader = cache.get("/View/CustomerHome.fxml");
-            CustomerHomeController controller = loader.getController();
-            controller.setParentController(CustomerDashboardController.this);
+            loadPane("/com/library/View/CustomerHome.fxml");
             activeButton = ActiveButton.HOME;
-            currentLocationLabel.setText("Dashboard");
+            currentLocationLabel.setText("Home");
             navigationBorderAnimation(HomeButton);
-            loadPane("/View/CustomerHome.fxml");
         }
     }
 
     public void gotoSetting() throws IOException {
         if (activeButton != ActiveButton.SETTING) {
-            FXMLLoader loader = cache.get("/View/CustomerSetting.fxml");
-            CustomerSettingController controller = loader.getController();
-            controller.setCustomerDashboardController(CustomerDashboardController.this);
+            loadPane("/com/library/View/CustomerSetting.fxml");
             activeButton = ActiveButton.SETTING;
             currentLocationLabel.setText("Setting");
             navigationBorderAnimation(settingButton);
-            loadPane("/View/CustomerSetting.fxml");
         }
     }
 
     public void gotoBorrowBook() {
         if (activeButton != ActiveButton.BORROW_BOOK) {
+            loadPane("/com/library/View/CustomerBorrowBook.fxml");
             activeButton = ActiveButton.BORROW_BOOK;
             currentLocationLabel.setText("Borrow Book");
             navigationBorderAnimation(borrowBookButton);
-            loadPane("/View/CustomerBorrowBook.fxml");
         }
     }
 
     public void gotoMyLibrary() {
         if (activeButton != ActiveButton.MY_LIBRARY) {
-            FXMLLoader loader = cache.get("/View/CustomerMyLibrary.fxml");
-            CustomerMyLibraryController controller = loader.getController();
-            controller.setDashboardController(CustomerDashboardController.this);
+            loadPane("/com/library/View/CustomerMyLibrary.fxml");
             activeButton = ActiveButton.MY_LIBRARY;
             currentLocationLabel.setText("My Library");
             navigationBorderAnimation(myLibraryButton);
-            loadPane("/View/CustomerMyLibrary.fxml");
-
         }
     }
+    public void switchToAdminAddBookView(String searchQuery) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/library/View/AdminAddBook.fxml")));
+            Parent adminAddBookRoot = loader.load();
 
+            AdminAddBookController controller = loader.getController();
+            if (controller != null) {
+                controller.setDashboardController(this);
+                controller.initializeSearchWithQuery(searchQuery);
+            } else {
+                System.err.println("AdminAddBookController is null after loading AdminAddBook.fxml");
+                return;
+            }
+            switchPaneAnimation(adminAddBookRoot);
+            if(currentLocationLabel!=null) currentLocationLabel.setText("Add Book to Library");
+            activeButton = ActiveButton.BORROW_BOOK;
+            navigationBorderAnimation(borrowBookButton); // Cập nhật nút active nếu có
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public Object getLoadedControllerInstance(String fxmlPath) {
+        FXMLLoader loader = cache.get(fxmlPath);
+        if (loader != null) {
+            return loader.getController();
+        }
+        System.err.println("No cached loader found for: " + fxmlPath + ". You might need to load it first if it's not part of the main navigation buttons.");
+        return null;
+    }
     private void preLoad() {
         String[] fxmlPaths = {
-                "/View/CustomerHome.fxml",
-                "/View/CustomerBorrowBook.fxml",
-                "/View/CustomerSetting.fxml",
-                "/View/CustomerMyLibrary.fxml",
+                "/com/library/View/CustomerHome.fxml",
+                "/com/library/View/CustomerBorrowBook.fxml",
+                "/com/library/View/CustomerSetting.fxml",
+                "/com/library/View/CustomerMyLibrary.fxml",
+                "/com/library/View/ADMIN.fxml",
         };
 
         for (String fxmlPath : fxmlPaths) {
-            Task<FXMLLoader> loadTask = new Task<>() {
-                @Override
-                protected FXMLLoader call() throws IOException {
-                    return new FXMLLoader(getClass().getResource(fxmlPath));
-                }
-            };
+            if (!cache.containsKey(fxmlPath)) {
 
-            loadTask.setOnSucceeded(event -> {
-                try {
+                Task<FXMLLoader> loadTask = new Task<>() {
+                    @Override
+                    protected FXMLLoader call() throws Exception {
+                        FXMLLoader loaderInstance = new FXMLLoader();
+                        URL resourceUrl = getClass().getResource(fxmlPath);
+                        if (resourceUrl == null) {
+                            throw new IOException("Cannot find FXML resource: " + fxmlPath);
+                        }
+                        loaderInstance.setLocation(resourceUrl);
+                        loaderInstance.load();
+                        return loaderInstance;
+                    }
+                };
+
+                loadTask.setOnSucceeded(event -> {
                     FXMLLoader loader = loadTask.getValue();
-                    loader.load();
-                    cache.put(fxmlPath, loader);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+                    if (loader != null && loader.getController() != null) {
+                        cache.put(fxmlPath, loader);
+                    } else {
+                        System.err.println("Lỗi preload: FXMLLoader hoặc Controller là null sau khi load FXML: " + fxmlPath);
+                    }
+                });
 
-            loadTask.setOnFailed(event -> loadTask.getException().printStackTrace());
+                loadTask.setOnFailed(event -> {
+                    if (loadTask.getException() != null) {
+                        loadTask.getException().printStackTrace();
+                    }
+                });
 
-            Thread loadPaneThread = new Thread(loadTask);
-            loadPaneThread.setDaemon(true);
-            loadPaneThread.start();
+                Thread loadPaneThread = new Thread(loadTask);
+                loadPaneThread.setDaemon(true);
+                loadPaneThread.start();
+            }
         }
     }
 
     public void loadPane(String fxmlPath) {
-        if (cache.containsKey(fxmlPath)) {
-            FXMLLoader loader = cache.get(fxmlPath);
-            switchPaneAnimation(loader.getRoot());
-        } else {
-            Task<FXMLLoader> loadTask = new Task<>() {
-                @Override
-                protected FXMLLoader call() throws IOException {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                    loader.load();
-                    return loader;
+        FXMLLoader loader = cache.get(fxmlPath);
+
+        if (loader == null) {
+            try {
+                loader = new FXMLLoader();
+                URL resourceUrl = getClass().getResource(fxmlPath);
+                if (resourceUrl == null) {
+                    System.err.println("loadPane: Không tìm thấy FXML resource: " + fxmlPath);
+                    return;
                 }
-            };
-            loadTask.setOnSucceeded(event -> {
-                FXMLLoader loader = loadTask.getValue();
+                loader.setLocation(resourceUrl);
+                Parent paneRoot = loader.load();
+                if (loader.getController() == null) {
+                    System.err.println("loadPane: Controller là null sau khi load FXML: " + fxmlPath);
+                    return;
+                }
                 cache.put(fxmlPath, loader);
-                switchPaneAnimation(loader.getRoot());
-            });
-            loadTask.setOnFailed(event -> {
-                Throwable exception = loadTask.getException();
-                System.out.println("Failed to load FXML: " + exception.getMessage());
-            });
-            Thread loadPaneThread = new Thread(loadTask);
-            loadPaneThread.setDaemon(true);
-            loadPaneThread.start();
+                configureChildController(loader, fxmlPath);
+                switchPaneAnimation(paneRoot);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) { // Bắt các lỗi khác
+                e.printStackTrace();
+            }
+        } else {
+            configureChildController(loader, fxmlPath); // Gọi cấu hình
+            switchPaneAnimation(loader.getRoot());
         }
     }
-
+    private void configureChildController(FXMLLoader loader, String fxmlPath) {
+        if (loader == null) {
+            System.err.println("configureChildController: FXMLLoader là null cho " + fxmlPath + ". Không thể cấu hình controller.");
+            return;
+        }
+        Object controller = loader.getController();
+        if (controller == null) {
+            System.err.println("configureChildController: Controller là null (từ loader.getController()) cho " + fxmlPath + ".");
+            return;
+        }
+        if (controller instanceof CustomerSettingController) {
+            ((CustomerSettingController) controller).setCustomerDashboardController(this);
+        } else if (controller instanceof CustomerMyLibraryController) {
+            ((CustomerMyLibraryController) controller).setDashboardController(this);
+        } else if (controller instanceof CustomerHomeController) {
+            ((CustomerHomeController) controller).setParentController(this);
+        } else if (controller instanceof CustomerBorrowBookController) {
+            ((CustomerBorrowBookController) controller).setParentDashboardController(this);
+        } else if (controller instanceof ADMINController) {
+            ((ADMINController) controller).setDashboardController(this);
+        }
+    }
     public void switchPaneAnimation(Node node) {
         if (currentNode != null) {
             FadeTransition fadeout = new FadeTransition(Duration.seconds(0.4), currentNode);
@@ -277,13 +373,13 @@ public class CustomerDashboardController implements Initializable {
     }
 
     public void searchBooks(String query) {
-        if (cache.containsKey("/View/customerBorrowBook.fxml")) {
-            FXMLLoader loader = cache.get("/View/customerBorrowBook.fxml");
+        if (cache.containsKey("/com/library/View/CustomerBorrowBook.fxml")) {
+            FXMLLoader loader = cache.get("/com/library/View/CustomerBorrowBook.fxml");
             CustomerBorrowBookController customerBorrowBookController = loader.getController();
             customerBorrowBookController.updateSearchBooksResult(query);
             navigationBorderAnimation(borrowBookButton);
         } else {
-            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/View/customerBorrowBook.fxml")));
+            FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/library/View/customerBorrowBook.fxml")));
             try {
                 Parent searchPane = loader.load();
                 CustomerBorrowBookController customerBorrowBookController = loader.getController();
@@ -305,9 +401,10 @@ public class CustomerDashboardController implements Initializable {
     }
     public void logOut() throws IOException {
         Parent login = FXMLLoader.load(Objects.requireNonNull(getClass()
-                .getResource("/View/LoginAndRegister.fxml")));
+                .getResource("/com/library/View/Login.fxml")));
         Stage stage = (Stage) dashboardRoot.getScene().getWindow();
-        stage.setScene(new Scene(login, 960, 640));
+        stage.setScene(new Scene(login, 749, 555));
+        stage.centerOnScreen();
         stage.show();
     }
 }

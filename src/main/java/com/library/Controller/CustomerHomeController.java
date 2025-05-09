@@ -64,7 +64,7 @@ public class CustomerHomeController implements Initializable {
     private Button viewButton3;
 
     private CustomerDashboardController parentController;
-    private List<Book> recommendedBooks;
+    private List<Book> recommendedBooks = new ArrayList<>();
 
     public CustomerDashboardController getParentController() {
         return parentController;
@@ -73,8 +73,8 @@ public class CustomerHomeController implements Initializable {
     public void setParentController(CustomerDashboardController parentController) {
         this.parentController = parentController;
         Customer currentCustomer = this.parentController.getCurrentCustomer();
-        customerWelcomeLabel.setText("Welcome " + currentCustomer.getName() + "!");
-        mainBannerImageView.setImage(new Image("/Image/tai-anh-meo-ngau-thumbnail.jpg"));
+        customerWelcomeLabel.setText("Welcome, " + currentCustomer.getName() + "!");
+        mainBannerImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/library/Image/tai-anh-meo-ngau-thumbnail.jpg"))));
     }
 
     @Override
@@ -113,9 +113,7 @@ public class CustomerHomeController implements Initializable {
         fetchBooksTask.setOnSucceeded(event -> {
             recommendedBooks.clear();
             recommendedBooks.addAll(fetchBooksTask.getValue());
-            Platform.runLater(() -> {
-                displayRecommendedBooks();
-            });
+            Platform.runLater(this::displayRecommendedBooks);
         });
 
         fetchBooksTask.setOnFailed(event -> {
@@ -162,16 +160,16 @@ public class CustomerHomeController implements Initializable {
         try {
             String imagePath = book.getThumbnailUrl();
             if (imagePath != null && !imagePath.isEmpty()) {
-                Image image = new Image(getClass().getResourceAsStream(imagePath));
+                Image image = new Image(imagePath, true);
                 imageView.setImage(image);
             } else {
-                Image placeholder = new Image(getClass().getResourceAsStream("/Image/icons8-bookshelf-50.png"));
+                Image placeholder = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Image/icons8-bookshelf-50.png")));
                 imageView.setImage(placeholder);
             }
         } catch (Exception e) {
             System.err.println("Error loading image: " + book.getThumbnailUrl() + " - " + e.getMessage());
             try {
-                Image placeholder = new Image(getClass().getResourceAsStream("/Image/icons8-bookshelf-50.png")); // Cần có ảnh này
+                Image placeholder = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/Image/icons8-bookshelf-50.png"))); // Cần có ảnh này
                 imageView.setImage(placeholder);
             } catch (Exception ex) {
                 imageView.setImage(null);
@@ -204,17 +202,18 @@ public class CustomerHomeController implements Initializable {
         }
     }
 
-
+    @FXML
     private void handleViewBookAction(Book book) {
         if (book == null || parentController == null) {
             System.err.println("handleViewBookAction: Sách hoặc parentController là null.");
             return;
         }
-        String searchQuery = book.getIsbn();
-        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+        String searchQuery = "isbn:" + book.getIsbn();
+
+        if (searchQuery == "isbn:") {
             searchQuery = book.getTitle();
         }
-        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+        if (searchQuery == "isbn:") {
             System.err.println("handleViewBookAction: Không có thông tin (ISBN/Tiêu đề) để tìm kiếm sách.");
             return;
         }
