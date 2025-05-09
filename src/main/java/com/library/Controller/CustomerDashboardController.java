@@ -76,6 +76,7 @@ public class CustomerDashboardController implements Initializable {
         if (adminPanelButton != null) {
             adminPanelButton.setVisible(false);
             adminPanelButton.setManaged(false);
+            ADMINButtonView.setVisible(false);
         } else {
             System.err.println("Cảnh báo: adminPanelButton là null trong setCustomer. Đảm bảo nó đã được inject từ FXML.");
         }
@@ -84,11 +85,13 @@ public class CustomerDashboardController implements Initializable {
                 if (adminPanelButton != null) {
                     adminPanelButton.setVisible(true);
                     adminPanelButton.setManaged(true);
+                    ADMINButtonView.setVisible(true);
                 }
             } else {
                 if (adminPanelButton != null) {
                     adminPanelButton.setVisible(false);
                     adminPanelButton.setManaged(false);
+                    ADMINButtonView.setVisible(false);
                 }
             }
             if (userNameLabel != null) {
