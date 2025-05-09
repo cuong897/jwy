@@ -16,20 +16,23 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import  avax.swing.*;
-
 import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CustomerSettingController implements Initializable {
+    @FXML
+    private Button changeNameButton;
+    @FXML
+    private Button changePhoneNumberButton;
+    @FXML
+    private Button changeGmailButton;
 
     @FXML
     private AnchorPane settingRoot;
-    @FXML
-    private Label userIDLabel;
     @FXML
     private Label userNameLabel;
     @FXML
@@ -45,13 +48,11 @@ public class CustomerSettingController implements Initializable {
     @FXML
     private PasswordField confirmPasswordField;
     @FXML
-    private TextField changeUserNameField;
+    private TextField changeNameField;
     @FXML
     private TextField changePhoneNumberField;
     @FXML
     private TextField changeGmailField;
-    @FXML
-    private TextField changeNameField;
     @FXML
     private Button changeAvatarButton;
     @FXML
@@ -68,38 +69,80 @@ public class CustomerSettingController implements Initializable {
         this.parentController = parentController;
         if (this.parentController != null) {
             this.currentCustomer = this.parentController.getCurrentCustomer();
-            if (this.currentCustomer != null) {
-                userIDLabel.setText(String.valueOf(currentCustomer.getUserID()));
-                userNameLabel.setText(currentCustomer.getUserName());
-                gmailLabel.setText("Email: " + currentCustomer.getEmail());
-                phoneNumberLabel.setText("Phone number: " + currentCustomer.getPhoneNumber());
+            populateUIWithCustomerData();
+        } else {
+            clearCustomerDataView();
+        }
+    }
+    private void populateUIWithCustomerData() {
+        if (this.currentCustomer != null) {
+            if (userNameLabel != null) userNameLabel.setText(this.currentCustomer.getName());
+            if (gmailLabel != null) gmailLabel.setText("Email: " + this.currentCustomer.getEmail());
+            if (phoneNumberLabel != null) phoneNumberLabel.setText("Phone number: " + this.currentCustomer.getPhoneNumber());
 
-                if (currentCustomer.getAvatarUrl() != null && !currentCustomer.getAvatarUrl().isEmpty()) {
+            if (avatarImage != null) {
+                String avatarPath = this.currentCustomer.getAvatarUrl();
+                if (avatarPath != null && !avatarPath.isEmpty()) {
                     try {
-                        Image image = new Image(currentCustomer.getAvatarUrl()); // Cần xử lý nếu getAvatarUrl() không phải URL hợp lệ
-                        avatarImage.setImage(image);
+                        Image image;
+                        if (avatarPath.matches("^(https?|file):.*$")) {
+                            image = new Image(avatarPath, true);
+                        } else {
+                            File imageFile = new File(avatarPath);
+                            if (imageFile.exists() && imageFile.isFile()) {
+                                image = new Image(imageFile.toURI().toString(), true);
+                            } else {
+                                System.err.println("Lỗi: File ảnh đại diện không tồn tại hoặc không phải file: " + avatarPath);
+                                Image defaultImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/library/Image/ApplicationLogo.jpg")));
+                                avatarImage.setImage(defaultImage);                                return;
+                            }
+                        }
+
+                        if (image.isError()) {
+                            System.err.println("Lỗi khi tải ảnh đại diện từ (Image.isError()): " + avatarPath);
+                            if(image.getException() != null) {
+                                image.getException().printStackTrace();
+                            }
+                            Image defaultImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/library/Image/ApplicationLogo.jpg")));
+                            avatarImage.setImage(defaultImage);                        } else {
+                            avatarImage.setImage(image);
+                        }
                     } catch (Exception e) {
-                        System.err.println("Lỗi khi tải ảnh : " + e.getMessage());
-                        Image defaultImage = new Image("/ApplicationLogo.jpg");
+                        System.err.println("Ngoại lệ khi tạo Image từ đường dẫn: " + avatarPath);
+                        e.printStackTrace();
+                        Image defaultImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/library/Image/ApplicationLogo.jpg")));
                         avatarImage.setImage(defaultImage);
                     }
                 } else {
-                    Image defaultImage = new Image("/ApplicationLogo.jpg");
+                    Image defaultImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/library/Image/ApplicationLogo.jpg")));
                     avatarImage.setImage(defaultImage);
                 }
-            } else {
-                userIDLabel.setText("");
-                userNameLabel.setText("");
-                gmailLabel.setText("");
-                phoneNumberLabel.setText("");
-                Image defaultImage = new Image("/Image/ApplicationLogo.jpg");
-                avatarImage.setImage(defaultImage);
             }
+
+        } else {
+            System.err.println("CustomerSettingController: currentCustomer là null trong populateUIWithCustomerData.");
+            clearCustomerDataView();
         }
+    }
+    public void clearCustomerDataView() {
+        if (userNameLabel != null) userNameLabel.setText("N/A");
+        if (gmailLabel != null) gmailLabel.setText("Email: N/A");
+        if (phoneNumberLabel != null) phoneNumberLabel.setText("Phone number: N/A");
+        Image defaultImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/library/Image/ApplicationLogo.jpg")));
+        avatarImage.setImage(defaultImage);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        oldPasswordField.setOnAction(event -> {
+            handleChangePassword();
+        });
+        newPasswordField.setOnAction(event -> {
+            handleChangePassword();
+        });
+        confirmPasswordField.setOnAction(event -> {
+            handleChangePassword();
+        });
         changeAvatarButton.setOnAction(event -> {
             handleChangeAvatar();
         });
@@ -112,10 +155,18 @@ public class CustomerSettingController implements Initializable {
         changeGmailField.setOnAction(event -> {
             handleChangeGmail();
         });
-        changeUserNameField.setOnAction(event -> {
-            handleChangeUserName();
+        changeNameField.setOnAction(event -> {
+            handleChangeName();
         });
-
+        changeNameButton.setOnAction(event -> {
+            handleChangeName();
+        });
+        changePhoneNumberButton.setOnAction(event -> {
+            handleChangePhoneNumber();
+        });
+        changeGmailButton.setOnAction(event -> {
+            handleChangeGmail();
+        });
     }
 
     public void handleChangeAvatar() {
@@ -142,10 +193,10 @@ public class CustomerSettingController implements Initializable {
         String imagePath = selectedImageFile.getAbsolutePath();
         if (imagePath != null && !imagePath.isEmpty()) {
             try (Connection connection = DatabaseConnection.getConnection()) {
-                String sql = "UPDATE customer SET avatar = ? WHERE userID = ?";
+                String sql = "UPDATE users SET avatarImage = ? WHERE userID = ?";
                 var preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, imagePath);
-                preparedStatement.setString(2, userIDLabel.getText());
+                preparedStatement.setInt(2, currentCustomer.getUserID());
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 System.err.println("Lỗi khi cập nhật ảnh đại diện: " + e.getMessage());
@@ -174,15 +225,16 @@ public class CustomerSettingController implements Initializable {
         }
 
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "UPDATE customer SET password = ? WHERE userID = ? AND password = ?";
+            String sql = "UPDATE users SET password = ? WHERE userID = ? AND password = ?";
             var preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, newPassword);
-            preparedStatement.setString(2, userIDLabel.getText());
+            preparedStatement.setInt(2, currentCustomer.getUserID());
             preparedStatement.setString(3, oldPassword);
             int rowsUpdated = preparedStatement.executeUpdate();
 
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+                currentCustomer.setPassword(newPassword);
             } else {
                 JOptionPane.showMessageDialog(null, "Đổi mật khẩu không thành công");
             }
@@ -199,10 +251,10 @@ public class CustomerSettingController implements Initializable {
             return;
         }
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "UPDATE customer SET phoneNumber = ? WHERE userID = ?";
+            String sql = "UPDATE users SET phoneNumber = ? WHERE userID = ?";
             var preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, newPhoneNumber);
-            preparedStatement.setString(2, userIDLabel.getText());
+            preparedStatement.setInt(2, currentCustomer.getUserID());
             int rowsUpdated = preparedStatement.executeUpdate();
 
             if (rowsUpdated > 0) {
@@ -223,10 +275,10 @@ public class CustomerSettingController implements Initializable {
             return;
         }
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "UPDATE customer SET email = ? WHERE userID = ?";
+            String sql = "UPDATE users SET email = ? WHERE userID = ?";
             var preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, newGmail);
-            preparedStatement.setString(2, userIDLabel.getText());
+            preparedStatement.setInt(2, currentCustomer.getUserID());
             int rowsUpdated = preparedStatement.executeUpdate();
 
             if (rowsUpdated > 0) {
@@ -239,23 +291,29 @@ public class CustomerSettingController implements Initializable {
             System.err.println("Lỗi khi cập nhật email: " + e.getMessage());
         }
     }
-
-    public void handleChangeUserName() {
-        String newUserName = changeUserNameField.getText();
+    public void handleChangeName() {
+        String newUserName = changeNameField.getText();
         if (newUserName.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền tên người dùng mới");
             return;
         }
+        parentController.getCurrentCustomer().setName(newUserName);
+        changeNameField.clear();
+
+        if (parentController != null) {
+            parentController.refreshCustomerDisplayInfo();
+        }
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String sql = "UPDATE customer SET userName = ? WHERE userID = ?";
+            String sql = "UPDATE users SET fullname = ? WHERE userID = ?";
             var preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, newUserName);
-            preparedStatement.setString(2, userIDLabel.getText());
+            preparedStatement.setInt(2, currentCustomer.getUserID());
             int rowsUpdated = preparedStatement.executeUpdate();
 
             if (rowsUpdated > 0) {
                 JOptionPane.showMessageDialog(null, "Cập nhật tên người dùng thành công");
                 userNameLabel.setText(newUserName);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Cập nhật tên người dùng không thành công");
             }

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="dashboardRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #A4B465;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerDashboardController">
+
+    <children>
+
+        <VBox alignment="TOP_CENTER" layoutX="0.0" layoutY="0.0" prefHeight="768.0" prefWidth="72.0" spacing="10.0" style="-fx-background-color: #8A9A5B;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+            <padding>
+
+                <Insets top="10.0" />
+
+            </padding>
+
+            <children>
+
+                <ImageView fx:id="appLogoImageView" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+
+                    <image>
+
+                        <Image url="@../Image/BCDBookshe.png" /> </image>
+
+                    <VBox.margin>
+
+                        <Insets bottom="20.0" />
+
+                    </VBox.margin>
+
+                </ImageView>
+
+
+
+                <Button fx:id="HomeButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
+
+                    <graphic>
+
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+
+                            <image><Image url="@../Image/icons8-home-50.png" /></image>
+
+                        </ImageView>
+
+                    </graphic>
+
+                </Button>
+
+                <Button fx:id="borrowBookButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
+
+                    <graphic>
+
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+
+                            <image><Image url="@../Image/icons8-book-50.png" /></image>
+
+                        </ImageView>
+
+                    </graphic>
+
+                </Button>
+
+                <Button fx:id="myLibraryButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
+
+                    <graphic>
+
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+
+                            <image><Image url="@../Image/icons8-bookshelf-50.png" /></image>
+
+                        </ImageView>
+
+                    </graphic>
+
+                </Button>
+                <Button fx:id="rankingButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
+
+                    <graphic>
+
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+
+                            <image><Image url="@../Image/icons8-rank-48.png" /></image>
+
+                        </ImageView>
+
+                    </graphic>
+
+                </Button>
+
+                <Button fx:id="settingButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
+
+                    <graphic>
+
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+
+                            <image><Image url="@../Image/icons8-setting-50.png" /></image>
+
+                        </ImageView>
+
+                    </graphic>
+
+                </Button>
+
+
+
+                <Pane VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="adminPanelButton" layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" text="Button" />
+               </children></Pane> <Button fx:id="logOutButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
+
+                <graphic>
+
+                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+
+                        <image><Image url="@../Image/icons8-log-out-50.png" /></image>
+
+                    </ImageView>
+
+                </graphic>
+
+                <VBox.margin>
+
+                    <Insets bottom="10.0" />
+
+                </VBox.margin>
+
+            </Button>
+
+            </children>
+
+        </VBox>
+
+
+
+        <Pane fx:id="navigationBorderPane" layoutX="0.0" layoutY="90.0" prefHeight="60.0" prefWidth="5.0" style="-fx-background-color: #F0BB78; -fx-background-radius: 0 5 5 0;" />
+
+
+
+
+
+        <AnchorPane layoutX="72.0" layoutY="0.0" prefHeight="60.0" prefWidth="952.0" style="-fx-background-color: #8A9A5B;" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+            <children>
+
+                <Label fx:id="currentLocationLabel" layoutX="20.0" layoutY="12.0" prefHeight="36.0" text="Dashboard" textFill="WHITE">
+
+                    <font>
+
+                        <Font name="System Bold" size="24.0" />
+
+                    </font>
+
+                </Label>
+
+                <TextField fx:id="searchToolBar" layoutX="250.0" layoutY="11.0" prefHeight="38.0" prefWidth="350.0" promptText="Search books..." style="-fx-background-color: F5ECD5; -fx-background-radius: 20px; -fx-padding: 0 15 0 15;" />
+
+                <Button fx:id="searchButton" layoutX="610.0" layoutY="11.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="45.0" style="-fx-background-color: F0BB78; -fx-background-radius: 20px;">
+
+                    <graphic>
+
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+
+                            <image>
+
+                                <Image url="@../Image/icons8-search-50.png" />
+
+                            </image>
+
+                        </ImageView>
+
+                    </graphic>
+
+                </Button>
+
+                <Label fx:id="userNameLabel" alignment="CENTER_RIGHT" layoutX="700.0" layoutY="15.0" prefHeight="30.0" prefWidth="230.0" text="User Name" textFill="WHITE" AnchorPane.rightAnchor="20.0">
+
+                    <font>
+
+                        <Font name="System Bold" size="16.0" />
+
+                    </font>
+
+                </Label>
+
+            </children>
+
+        </AnchorPane>
+
+
+
+        <AnchorPane fx:id="mainContainer" layoutX="72.0" layoutY="60.0" style="-fx-background-color: F5ECD5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+
+
+
+    </children>
+
+</AnchorPane>

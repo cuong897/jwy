@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="registerRoot" prefHeight="555.0" prefWidth="749.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.RegisterController">
+   <children>
+      <Pane layoutX="115.0" layoutY="24.0" prefHeight="507.0" prefWidth="603.0" styleClass="pane" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="115.40000000000009" AnchorPane.topAnchor="24.0">
+         <children>
+            <VBox layoutX="30.0" layoutY="90.0" prefHeight="353.0" prefWidth="117.0">
+               <children>
+                  <Label text="Name" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Phone number" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="User name" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Email:" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Password" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Xác nhận mật khẩu" />
+                  <Pane prefHeight="200.0" prefWidth="138.0" />
+               </children>
+            </VBox>
+            <Label layoutX="44.0" prefHeight="73.0" prefWidth="427.0" text="CREATE YOUR ACCOUNT">
+               <font>
+                  <Font name="Courier New Bold" size="37.0" />
+               </font>
+            </Label>
+            <TextField fx:id="NameField" layoutX="147.0" layoutY="80.0" prefHeight="37.0" prefWidth="331.0" promptText="Enter first and last name" />
+            <TextField fx:id="phoneNumberField" layoutX="147.0" layoutY="138.0" prefHeight="37.0" prefWidth="331.0" promptText="Phone number" />
+            <TextField fx:id="userNameField" layoutX="148.0" layoutY="195.0" prefHeight="37.0" prefWidth="331.0" promptText="Account name" />
+            <PasswordField fx:id="passwordField" layoutX="147.0" layoutY="318.0" prefHeight="37.0" prefWidth="331.0" promptText="Password (at least 6 characters)" />
+            <PasswordField fx:id="confirmPasswordField" layoutX="147.0" layoutY="373.0" prefHeight="37.0" prefWidth="331.0" promptText="Re-enter the password" />
+            <Button fx:id="registerButton" layoutX="203.0" layoutY="454.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRegisterButtonAction" style="-fx-background-color: #00bcd4;" text="REGISTER" />
+            <TextField fx:id="EmailField" layoutX="148.0" layoutY="255.0" prefHeight="37.0" prefWidth="331.0" promptText="Email (Ex: ten@email.com)" />
+            <Label fx:id="registerNotificationLabel" layoutX="44.0" layoutY="425.0" prefHeight="17.0" prefWidth="427.0" textFill="#ec0303" />
+            <Hyperlink fx:id="loginLink" layoutX="30.0" layoutY="442.0" onAction="#handleLoginLinkAction" text="Already have an account? Log in" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

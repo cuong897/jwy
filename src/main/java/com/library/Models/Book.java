@@ -1,5 +1,8 @@
 package com.library.Models;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 public class Book {
     private int availableNumber;
     private String title;
@@ -7,11 +10,37 @@ public class Book {
 
     private String description;
     private String isbn;
+    private  int borrowCount;
     String thumbnailUrl;
-    public Book(){
+    private transient BooleanProperty selectedForReturn = new SimpleBooleanProperty(false);
+
+    public boolean isSelectedForReturn() {
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        return this.selectedForReturn.get();
+    }
+
+    public void setSelectedForReturn(boolean selected) {
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        this.selectedForReturn.set(selected);
+    }
+
+    public BooleanProperty selectedForReturnProperty() {
+        // Đảm bảo selectedForReturn không bao giờ null khi được truy cập
+        if (this.selectedForReturn == null) {
+            this.selectedForReturn = new SimpleBooleanProperty(false);
+        }
+        return this.selectedForReturn;
+    }
+
+    public Book() {
 
     }
-    public Book(Book other){
+
+    public Book(Book other) {
 
         this.availableNumber = other.availableNumber;
         this.title = other.title;
@@ -20,8 +49,6 @@ public class Book {
         this.description = this.description;
         this.isbn = other.isbn;
     }
-
-
 
     public int getAvailableNumber() {
         return availableNumber;
@@ -47,7 +74,6 @@ public class Book {
         this.author = author;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -63,9 +89,11 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
     public String getThumbnailUrl() {
         return thumbnailUrl;
     }
+
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
@@ -75,5 +103,13 @@ public class Book {
         this.description = description;
         this.isbn = isbn;
         this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public int getBorrowCount() {
+        return borrowCount;
+    }
+
+    public void setBorrowCount(int borrowCount) {
+        this.borrowCount = borrowCount;
     }
 }

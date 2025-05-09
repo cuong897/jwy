@@ -1,0 +1,47 @@
+/* neumorphism.css */
+.root {
+    -fx-background-color: #e0e5ec; /* Màu nền Neumorphism */
+}
+
+/* Nút bo tròn */
+.button {
+    -fx-background-color: #e0e5ec;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-padding: 12px 30px;
+    -fx-text-fill: #6d7587;
+    -fx-effect:
+        dropshadow(gaussian, rgba(163,177,198,0.6), 10, 0, 5, 5),
+        innershadow(gaussian, rgba(255,255,255,0.5), 5, 0, 1, 1);
+}
+
+/* Ô input bo tròn */
+.text-field, .password-field {
+    -fx-background-color: #e0e5ec;
+    -fx-background-radius: 15px;
+    -fx-padding: 10px 15px;
+    -fx-effect:
+        dropshadow(gaussian, rgba(163,177,198,0.6), 10, 0, 5, 5),
+        innershadow(gaussian, rgba(255,255,255,0.5), 5, 0, 1, 1);
+
+}
+.vbox {
+    /* Màu nền - phải trùng với màu nền root */
+    -fx-background-color: #e0e5ec;
+    -fx-background-radius: 30px;
+
+    /* Viền sáng (trên-trái) */
+    -fx-border-color: linear-gradient(to bottom right, #ffffff80, #ffffff00);
+    -fx-border-width: 3px;
+    -fx-border-radius: 30px;
+
+    /* Viền tối (dưới-phải) */
+    -fx-effect: dropshadow(gaussian, #a3b1c6, 20, 0, 5, 5);
+
+    /* Padding để viền không bị che */
+    -fx-padding: 20px;
+}
+.button:hover {
+    -fx-background-color: #00FF99; /* Màu nền khi hover */
+    -fx-text-fill: white; /* Màu chữ khi hover */
+}

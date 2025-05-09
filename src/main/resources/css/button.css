@@ -1,6 +1,0 @@
-.button.selected {
-    -fx-background-color: #4CAF50; /* Màu xanh dương hoặc bất kỳ màu nổi bật */
-    -fx-text-fill: white;
-    -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 1);
-}

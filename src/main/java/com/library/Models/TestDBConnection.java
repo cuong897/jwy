@@ -6,7 +6,7 @@ import java.sql.Connection;
 public class TestDBConnection {
     public static void main(String[] args) {
         String user = "root";
-        String password = "Your password goes here";
+        String password = "password";
         String databaseUrl = "jdbc:mysql://localhost:3306/libraryDB";
 
         try {
