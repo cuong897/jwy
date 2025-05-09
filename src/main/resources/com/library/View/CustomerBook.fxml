@@ -1,91 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.UserBookController">
+<AnchorPane fx:id="rootPane" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerBorrowBookController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="15.0" prefHeight="40.0" prefWidth="380.0" text="Results" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <ListView fx:id="booksListView" layoutX="20.0" layoutY="65.0" prefHeight="625.0" prefWidth="380.0" style="-fx-border-color: #cccccc; -fx-border-width: 1px;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="65.0" />
 
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5; -fx-background-radius: 0px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-        <children>
-            <Pane layoutX="438.0" layoutY="87.0" prefHeight="595.0" prefWidth="496.0" style="-fx-background-color: white; -fx-background-radius: 20px;">
-                <children>
-                    <Pane layoutX="11.0" layoutY="10.0" prefHeight="243.0" prefWidth="157.0" style="-fx-background-color: red;">
-                        <children>
-                            <ImageView fx:id="coverImageView" fitHeight="249.0" fitWidth="157.0" pickOnBounds="true" preserveRatio="true" />
-                        </children>
-                    </Pane>
-                    <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="160.0" layoutY="6.0" prefHeight="33.0" prefWidth="307.0" text="Label">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="420.0" layoutY="15.0" prefHeight="40.0" prefWidth="514.0" text="Details" textAlignment="CENTER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <Pane fx:id="detailViewPane" layoutX="420.0" layoutY="65.0" prefHeight="625.0" prefWidth="514.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-color: #cccccc; -fx-border-radius: 15px;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="65.0">
+            <children>
+                <Pane layoutX="25.0" layoutY="25.0" prefHeight="280.0" prefWidth="180.0" style="-fx-background-color: #dedede; -fx-border-color: #cccccc;">
+                    <children>
+                        <ImageView fx:id="coverImageView" fitHeight="280.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                </Pane>
+
+                <Label fx:id="titleLabel" alignment="TOP_LEFT" layoutX="225.0" layoutY="25.0" prefHeight="40.0" prefWidth="269.0" text="Book Title" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <VBox layoutX="225.0" layoutY="75.0" prefWidth="269.0" spacing="8.0">
+                    <children>
+                        <Label fx:id="authorLabel" text="Author: N/A" wrapText="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="isbnLabel" text="ISBN: N/A" textFill="#555555" wrapText="true">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <ScrollPane fitToWidth="true" layoutX="25.0" layoutY="320.0" prefHeight="210.0" prefWidth="469.0">
+                    <content>
+                        <TextArea fx:id="descriptionTextArea" editable="false" prefHeight="208.0" prefWidth="467.0" promptText="Description..." wrapText="true">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextArea>
+                    </content>
+                </ScrollPane>
+
+                <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="555.0" prefHeight="50.0" prefWidth="469.0" spacing="20.0">
+                    <children>
+                        <Label text="Status:">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="statusLabel" alignment="CENTER" prefHeight="35.0" prefWidth="130.0" style="-fx-background-color: A4B465; -fx-background-radius: 10px;" text="Status" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <Pane HBox.hgrow="ALWAYS" /> <Button fx:id="borrowButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" style="-fx-background-color: F0BB78; -fx-background-radius: 8px;" text="Mượn">
                         <font>
-                            <Font name="System Bold Italic" size="19.0" />
+                            <Font name="System Bold" size="15.0" />
                         </font>
-                    </Label>
-                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="490.0" prefHeight="37.0" prefWidth="89.0" text="Status">
-                        <font>
-                            <Font name="System Bold" size="22.0" />
-                        </font>
-                    </Label>
-                    <Pane layoutX="20.0" layoutY="531.0" prefHeight="49.0" prefWidth="159.0" style="-fx-background-color: A4B465; -fx-background-radius: 20px;">
-                        <children>
-                            <Label fx:id="availabilityLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="6.0" prefHeight="37.0" prefWidth="129.0" text="Label" textFill="WHITE">
-                        <font>
-                           <Font size="19.0" />
-                        </font></Label>
-                        </children></Pane>
-                    <Button fx:id="borrowButton" layoutX="384.0" layoutY="534.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" style="-fx-background-color: F0BB78;" text="Borrow">
-                  <font>
-                     <Font size="20.0" />
-                  </font></Button>
-                    <VBox layoutX="178.0" layoutY="58.0" prefHeight="385.0" prefWidth="305.0">
-                        <children>
-                            <Label fx:id="authorLabel" prefHeight="18.0" prefWidth="62.0" text="label">
-                        <font>
-                           <Font size="17.0" />
-                        </font></Label>
-                            <Label fx:id="publisherLabel" prefHeight="18.0" prefWidth="97.0" text="label">
-                        <font>
-                           <Font size="17.0" />
-                        </font></Label>
-                            <Label fx:id="isbnLabel" text="Label">
-                        <font>
-                           <Font size="17.0" />
-                        </font></Label>
-                            <Label fx:id="categoryLabel" text="Label">
-                        <font>
-                           <Font size="17.0" />
-                        </font></Label>
-                            <Label fx:id="publishDateLabel" text="Label">
-                        <font>
-                           <Font size="17.0" />
-                        </font></Label>
-                            <TextArea fx:id="descriptionTextArea" prefHeight="299.0" prefWidth="297.0" />
-                        </children>
-                    </VBox>
-                      <Label fx:id="priceLabel" layoutX="177.0" layoutY="449.0" prefHeight="34.0" prefWidth="97.0" text="Label">
-                  <font>
-                     <Font size="17.0" />
-                  </font>
-               </Label>
-                </children>
-            </Pane>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="168.0" layoutY="22.0" prefHeight="55.0" prefWidth="111.0" text="Results">
-                <font>
-                    <Font name="System Bold" size="30.0" />
-                </font>
-            </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="624.0" layoutY="27.0" prefHeight="41.0" prefWidth="134.0" text="Details">
-                <font>
-                    <Font name="System Bold" size="30.0" />
-                </font>
-            </Label>
-            <ListView fx:id="booksListView" layoutX="35.0" layoutY="90.0" prefHeight="589.0" prefWidth="379.0" />
-        </children>
-    </AnchorPane>
-
+                    </Button>
+                    </children>
+                </HBox>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
+
