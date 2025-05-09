@@ -145,22 +145,22 @@ public class LoginController implements Initializable {
                         controller.setCustomer((Customer) user);
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         Platform.runLater(stage::centerOnScreen);
-                        stage.setScene(new Scene(dashboard, 1440, 900));
+                        stage.setScene(new Scene(dashboard, 1024, 768));
                         stage.show();
                     } catch (IOException ex) {
-                        System.out.println("ncj");
+                        throw new RuntimeException(ex);
                     }
                 } else if (user instanceof ADMIN) {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass()
-                                .getResource("/com/lightlibrary/View/CustomerDashboard.fxml"));
+                                .getResource("/com/library/View/CustomerDashboard.fxml"));
                         Parent dashboard = loader.load();
                         CustomerDashboardController controller = loader.getController();
                         ADMIN admin = (ADMIN) user;
                         controller.setCustomer( admin.convertADMINtoCustomer((ADMIN) user));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         Platform.runLater(stage::centerOnScreen);
-                        stage.setScene(new Scene(dashboard, 1440, 900));
+                        stage.setScene(new Scene(dashboard, 1024, 768));
                         stage.show();
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
