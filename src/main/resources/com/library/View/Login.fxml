@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="loginRoot" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="749.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.LoginController">
+    <children>
+        <Pane layoutX="164.0" layoutY="30.0" prefHeight="494.0" prefWidth="418.0" styleClass="pane" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="166.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <Label layoutX="52.0" layoutY="188.0" prefHeight="44.0" prefWidth="49.0" text="👤">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
+                <Label layoutX="147.0" layoutY="40.0" lineSpacing="10.0" prefHeight="141.0" prefWidth="207.0" text="LOGIN" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS" wrapText="true">
+                    <font>
+                        <Font name="Courier New Bold" size="37.0" />
+                    </font>
+                    <effect>
+                        <Blend />
+                    </effect>
+                    <cursor>
+                        <Cursor fx:constant="NW_RESIZE" />
+                    </cursor>
+                </Label>
+                <Label fx:id="loginNotificationLabel" layoutX="97.0" layoutY="305.0" prefHeight="17.0" prefWidth="225.0" textFill="#e41313" />
+                <Button fx:id="loginButton" alignment="CENTER" layoutX="130.0" layoutY="363.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="44.0" prefWidth="171.0" style="-fx-background-color: #00bcd4;" text="LOGIN">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                    </cursor>
+                </Button>
+                <Hyperlink fx:id="registerLink" layoutX="27.0" layoutY="430.0" onAction="#handleRegisterLinkAction" text="Don't have an account yet? Register" />
+                <Hyperlink fx:id="forgotPasswordLink" layoutX="284.0" layoutY="430.0" text="Forgot password?" />
+            </children>
+        </Pane>
+        <TextField fx:id="usernameField" layoutX="249.0" layoutY="216.0" prefHeight="36.0" prefWidth="251.0" promptText="Username" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="249.0" />
+        <PasswordField fx:id="passwordField" layoutX="248.0" layoutY="278.0" prefHeight="36.0" prefWidth="251.0" promptText="Password" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="249.0" />
+        <Label layoutX="217.0" layoutY="269.0" prefHeight="55.0" prefWidth="63.0" text="🔒">
+            <font>
+                <Font size="28.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
+
