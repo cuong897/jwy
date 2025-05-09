@@ -5,13 +5,12 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?> <!-- Thêm Insets nếu cần padding cho AnchorPane -->
 
-<!-- Thêm Insets nếu cần padding cho AnchorPane -->
-
-<AnchorPane prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: #F5ECD5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerRankingBookController">
+<AnchorPane prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: #F5ECD5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.CustomerRankingBook">
     <!-- Sửa phiên bản xmlns:fx="http://javafx.com/fxml/1" và xmlns="http://javafx.com/javafx/17" hoặc phiên bản JavaFX bạn đang dùng -->
     <children>
-        <Label layoutX="30.0" layoutY="14.0" text="The most borrowed book rankings">
+        <Label layoutX="30.0" layoutY="14.0" text="Bảng Xếp Hạng Sách Được Mượn Nhiều Nhất">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font>
@@ -20,9 +19,9 @@
 
         <TableView fx:id="rankingTableView" layoutX="13.0" layoutY="52.0" prefHeight="611.0" prefWidth="930.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="52.0">
             <columns>
-                <TableColumn fx:id="rankColumn" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Rank" />
-                <TableColumn fx:id="titleColumn" prefWidth="480.0" text="Title" /> <!-- Điều chỉnh lại prefWidth -->
-                <TableColumn fx:id="authorColumn" prefWidth="380.0" text="Author" /> <!-- Điều chỉnh lại prefWidth -->
+                <TableColumn fx:id="rankColumn" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Hạng" />
+                <TableColumn fx:id="titleColumn" prefWidth="480.0" text="Tên Sách" /> <!-- Điều chỉnh lại prefWidth -->
+                <TableColumn fx:id="authorColumn" prefWidth="380.0" text="Tác Giả" /> <!-- Điều chỉnh lại prefWidth -->
                 <!-- Không có cột Số Lần Mượn theo yêu cầu trước -->
             </columns>
             <columnResizePolicy>

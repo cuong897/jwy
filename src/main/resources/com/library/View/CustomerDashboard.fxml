@@ -86,13 +86,13 @@
             <Button fx:id="settingButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="72.0" style="-fx-background-color: transparent;">
 
                <graphic>
-      
+
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-      
+
                      <image>
                         <Image url="@../Image/icons8-setting-50.png" />
                      </image>
-      
+
                   </ImageView>
 
                </graphic>
@@ -104,13 +104,13 @@
             <Pane prefHeight="260.0" prefWidth="72.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button fx:id="adminPanelButton" layoutX="-1.0" layoutY="71.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
-                  <Button fx:id="HomeButton1" contentDisplay="GRAPHIC_ONLY" layoutX="-3.0" layoutY="2.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
+                  <Button fx:id="rankingButton" contentDisplay="GRAPHIC_ONLY" layoutX="-3.0" layoutY="2.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="75.0" style="-fx-background-color: transparent;" />
                   <ImageView fitHeight="38.0" fitWidth="36.0" layoutX="18.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Image/icons8-rank-48.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="20.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="ADMINButtonView" fitHeight="35.0" fitWidth="34.0" layoutX="20.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../Image/icons8-administrator-58.png" />
                      </image>
