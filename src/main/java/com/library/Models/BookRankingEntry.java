@@ -1,4 +1,4 @@
-package com.library.Models; // Hoặc package phù hợp với cấu trúc dự án của bạn
+package com.library.Models;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,7 +9,7 @@ public class BookRankingEntry {
     private final IntegerProperty rank;
     private final StringProperty title;
     private final StringProperty author;
-    private final IntegerProperty borrowCount; // Giữ lại để sắp xếp, dù không hiển thị
+    private final IntegerProperty borrowCount;
 
     public BookRankingEntry(int rank, String title, String author, int borrowCount) {
         this.rank = new SimpleIntegerProperty(rank);
@@ -18,7 +18,6 @@ public class BookRankingEntry {
         this.borrowCount = new SimpleIntegerProperty(borrowCount);
     }
 
-    // Getters for Properties (cần thiết cho TableView)
     public IntegerProperty rankProperty() {
         return rank;
     }
@@ -35,7 +34,6 @@ public class BookRankingEntry {
         return borrowCount;
     }
 
-    // Getters for values (thuận tiện)
     public int getRank() {
         return rank.get();
     }
