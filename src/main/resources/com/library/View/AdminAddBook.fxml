@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootPane" prefHeight="710.0" prefWidth="954.0" style="-fx-background-color: F5ECD5;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.Controller.AdminAddBookController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="15.0" prefHeight="40.0" prefWidth="380.0" text="Kết quả tìm kiếm sách" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <ListView fx:id="booksListView" layoutX="20.0" layoutY="65.0" prefHeight="625.0" prefWidth="380.0" style="-fx-border-color: #cccccc; -fx-border-width: 1px;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="65.0" />
+
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="420.0" layoutY="15.0" prefHeight="40.0" prefWidth="514.0" text="Chi tiết sách" textAlignment="CENTER" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <Pane fx:id="detailViewPane" layoutX="420.0" layoutY="65.0" prefHeight="625.0" prefWidth="514.0" style="-fx-background-color: white; -fx-background-radius: 15px; -fx-border-color: #cccccc; -fx-border-radius: 15px;" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="65.0">
+            <children>
+                <Pane layoutX="25.0" layoutY="25.0" prefHeight="280.0" prefWidth="180.0" style="-fx-background-color: #dedede; -fx-border-color: #cccccc;">
+                    <children>
+                        <ImageView fx:id="coverImageView" fitHeight="280.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                </Pane>
+
+                <Label fx:id="titleLabel" alignment="TOP_LEFT" layoutX="225.0" layoutY="25.0" prefHeight="40.0" prefWidth="269.0" text="Book Title" wrapText="true">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <VBox layoutX="225.0" layoutY="75.0" prefWidth="269.0" spacing="8.0">
+                    <children>
+                        <Label fx:id="authorLabel" text="Author: N/A" wrapText="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="isbnLabel" text="ISBN: N/A" textFill="#555555" wrapText="true">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <ScrollPane fitToWidth="true" layoutX="25.0" layoutY="320.0" prefHeight="210.0" prefWidth="469.0">
+                    <content>
+                        <TextArea fx:id="descriptionTextArea" editable="false" prefHeight="208.0" prefWidth="467.0" promptText="Description..." wrapText="true">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </TextArea>
+                    </content>
+                </ScrollPane>
+
+                <VBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="545.0" prefWidth="469.0" spacing="10.0" AnchorPane.bottomAnchor="20.0">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <children>
+                                <Label text="Số lượng thêm:">
+                                    <font><Font name="System Bold" size="14.0" /></font>
+                                </Label>
+                                <TextField fx:id="quantityField" prefWidth="100.0" promptText="Nhập SL" />
+                                <Button fx:id="addBookButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 8px;" text="Thêm vào kho">
+                                    <font>
+                                        <Font name="System Bold" size="15.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets top="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
+
+
