@@ -63,10 +63,10 @@ public class RegisterController implements Initializable {
     @FXML
     private void handleLoginLinkAction() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/library/View/Login.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) registerRoot.getScene().getWindow();
-            stage.setScene(new Scene(root, 960, 640));
+            stage.setScene(new Scene(root, 749, 555));
             stage.centerOnScreen();
         } catch (IOException e) {
             e.printStackTrace();
@@ -123,7 +123,6 @@ public class RegisterController implements Initializable {
             stmt.setString(5, EmailField.getText());
 
             int rowsInserted = stmt.executeUpdate();
-
             if (rowsInserted > 0) {
                 registerNotificationLabel.setText("Tài khoản đã được tạo thành công");
 
