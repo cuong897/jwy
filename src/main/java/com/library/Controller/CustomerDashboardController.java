@@ -30,6 +30,8 @@ import java.util.ResourceBundle;
 
 public class CustomerDashboardController implements Initializable {
     @FXML
+    private Button rankingButton;
+    @FXML
     private ImageView ADMINButtonView;
     @FXML
     private Button adminPanelButton;
@@ -109,6 +111,7 @@ public class CustomerDashboardController implements Initializable {
 
 
     public enum ActiveButton {
+        RANKING,
         ADMIN,
         HOME,
         SETTING,
@@ -117,9 +120,10 @@ public class CustomerDashboardController implements Initializable {
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (adminPanelButton != null) { // Kiểm tra null để tránh lỗi nếu FXML chưa cập nhật
-            adminPanelButton.setOnAction(e -> gotoAdminPanel());
-        }
+        adminPanelButton.setOnAction(e -> gotoAdminPanel());
+        rankingButton.setOnAction(e -> {
+            goToRanking();
+        });
         settingButton.setOnAction(e -> {
             try {
                 gotoSetting();
@@ -174,6 +178,30 @@ public class CustomerDashboardController implements Initializable {
         navigationButtonBorderTransition.setToY(targetNavigationPaneY - navigationBorderPane.getLayoutY());
         navigationButtonBorderTransition.play();
 //        playClickSound();
+    }
+    public void notifyRankingNeedsRefresh() {
+        FXMLLoader rankingLoader = cache.get("/com/library/View/CustomerRankingBook.fxml");
+        if (rankingLoader != null) {
+            Object controller = rankingLoader.getController();
+            if (controller instanceof CustomerRankingBook) {
+                ((CustomerRankingBook) controller).refreshRankingDataPublic();
+            } else {
+                System.err.println("Controller không phải là CustomerRankingBook.");
+            }
+        } else {
+            System.out.println("Dashboard: Ranking FXML not found in cache. Cannot notify refresh.");
+        }
+    }
+    public void goToRanking() {
+        if (activeButton != ActiveButton.RANKING) {
+            loadPane("/com/library/View/CustomerRankingBook.fxml");
+            activeButton = ActiveButton.RANKING;
+            currentLocationLabel.setText("Bảng Xếp Hạng");
+            if (rankingButton != null) {
+                navigationBorderAnimation(rankingButton);
+            } else {
+            }
+        }
     }
     public void gotoAdminPanel() {
         if (activeButton != ActiveButton.ADMIN) {
@@ -249,6 +277,7 @@ public class CustomerDashboardController implements Initializable {
     }
     private void preLoad() {
         String[] fxmlPaths = {
+                "/com/library/View/CustomerRankingBook.fxml",
                 "/com/library/View/CustomerHome.fxml",
                 "/com/library/View/CustomerBorrowBook.fxml",
                 "/com/library/View/CustomerSetting.fxml",
@@ -345,6 +374,8 @@ public class CustomerDashboardController implements Initializable {
             ((CustomerBorrowBookController) controller).setParentDashboardController(this);
         } else if (controller instanceof ADMINController) {
             ((ADMINController) controller).setDashboardController(this);
+        } else if (controller instanceof CustomerRankingBook) {
+            ((CustomerRankingBook) controller).setDashboardController(this);
         }
     }
     public void switchPaneAnimation(Node node) {
