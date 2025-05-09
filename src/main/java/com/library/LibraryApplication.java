@@ -17,7 +17,7 @@ public class LibraryApplication extends Application {
         stage.setTitle("Library");
         stage.setResizable(false);
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass()
-                .getResource("/Image/ApplicationLogo.jpg")).toExternalForm()));
+                .getResource("/com/library/Image/ApplicationLogo.jpg")).toExternalForm()));
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
