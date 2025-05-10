@@ -149,5 +149,7 @@ The project is completed.
 
 This software is written for educational purposes.
 
+This software includes code references generated with the assistance of AI tools such as ChatGPT and Deepseek.
+
 
 
